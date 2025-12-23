@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Prompt Media Pembelajaran untuk Canva Code</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            padding-bottom: 50px;
+        }
+        
+        .header-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .conditional-section {
+            border-left-color: #6c757d;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .conditional-section.active {
+            opacity: 1;
+            border-left-color: var(--primary-color);
+        }
+        
+        .section-title {
+            color: var(--secondary-color);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .prompt-output {
+            background-color: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 500px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+        
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-custom:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .counter-badge {
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+        }
+        
+        .cloneable-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .icon-preview {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            background-color: white;
+        }
+        
+        .media-preview {
+            max-width: 100px;
+            max-height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+            background-color: white;
+        }
+        
+        .login-field-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f1f3f9;
+            border-radius: 5px;
+            border-left: 3px solid #6c757d;
+        }
+        
+        .canva-sheet-option {
+            background-color: #e8f4fd;
+            border-left: 4px solid #4cc9f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .header-section {
+                padding: 1.5rem;
+            }
+            
+            .section-card {
+                padding: 1rem;
+            }
+        }
+        
+        .responsive-option {
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            border-left: 4px solid #4361ee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header-section text-center">
+            <h1>Generator Prompt Media Pembelajaran untuk Canva Code</h1>
+            <p class="lead">Buat prompt yang sesuai untuk membuat media pembelajaran dengan AI Canva Code</p>
+            <p class="mb-0">Isi formulir di bawah ini untuk menghasilkan prompt yang spesifik</p>
+        </div>
+        
+        <!-- Input Form -->
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Section A: Loading Screen -->
+                <div class="section-card">
+                    <h3 class="section-title">A. Loading Screen</h3>
+                    <div class="mb-3">
+                        <label for="loadingScreenType" class="form-label">Jenis Loading Screen</label>
+                        <select class="form-select" id="loadingScreenType">
+                            <option value="simple">Sederhana (spinner)</option>
+                            <option value="animated">Animasi Lengkap</option>
+                            <option value="progress">Dengan Progress Bar</option>
+                            <option value="minimal">Minimalis</option>
+                            <option value="custom">Kustom (deskripsikan di bawah)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="customLoadingContainer" style="display: none;">
+                        <label for="customLoadingDesc" class="form-label">Deskripsi Loading Screen Kustom</label>
+                        <textarea class="form-control" id="customLoadingDesc" rows="2" placeholder="Contoh: Loading screen dengan animasi buku terbuka dan teks 'Memuat pengetahuan...'"></textarea>
+                    </div>
+                </div>
+                
+                <!-- Section B: Header & Login -->
+                <div class="section-card">
+                    <h3 class="section-title">B. Header & Login</h3>
+                    <div class="mb-3">
+                        <label for="judul" class="form-label">Judul Media Pembelajaran</label>
+                        <input type="text" class="form-control" id="judul" value="Media Pembelajaran Interaktif">
+                    </div>
+                    <div class="mb-3">
+                        <label for="subJudul" class="form-label">Sub Judul</label>
+                        <input type="text" class="form-control" id="subJudul" value="Belajar dengan cara yang menyenangkan dan efektif">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Sistem Login</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="loginOption" id="loginNo" value="no" checked>
+                            <label class="form-check-label" for="loginNo">
+                                Tanpa Login
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="loginOption" id="loginYes" value="yes">
+                            <label class="form-check-label" for="loginYes">
+                                Dengan Login
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="loginFieldsContainer" style="display: none;">
+                        <div class="mb-3">
+                            <label class="form-label">Field Login yang Diperlukan</label>
+                            <div id="loginFields">
+                                <!-- Login fields will be added here dynamically -->
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-primary mt-2" id="addLoginField">
+                                + Tambah Field Login
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Section C: Tujuan Pembelajaran -->
+                <div class="section-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="section-title mb-0">C. Tujuan Pembelajaran
+                            <span class="counter-badge" id="tujuanCounter">1</span>
+                        </h3>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-custom" id="addTujuanBtn">
+                                + Tambah Tujuan
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-muted">Tentukan tujuan pembelajaran yang ingin dicapai</p>
+                    
+                    <div id="tujuanItemsContainer">
+                        <!-- Tujuan items will be added here dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Section D: Menu -->
+                <div class="section-card">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="section-title mb-0">D. Menu
+                            <span class="counter-badge" id="menuCounter">4</span>
+                        </h3>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-custom" id="addMenuBtn">
+                                + Tambah Menu
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-muted">Tentukan menu yang akan ada di media pembelajaran Anda</p>
+                    
+                    <div id="menuItemsContainer">
+                        <!-- Menu items will be added here dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Section E: Materi (Conditional) -->
+                <div class="section-card conditional-section" id="materiSection">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="section-title mb-0">E. Materi
+                            <span class="counter-badge" id="materiCounter">0</span>
+                        </h3>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-custom" id="addMateriBtn">
+                                + Tambah Materi
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-muted">Tentukan materi pembelajaran yang akan disajikan</p>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="trackLearningTime">
+                            <label class="form-check-label" for="trackLearningTime">
+                                Aktifkan Pelacakan Waktu Belajar
+                            </label>
+                        </div>
+                        <small class="text-muted">Jika diaktifkan, akan menampilkan waktu berjalan dan menyimpan data ke Canva Sheet</small>
+                    </div>
+                    
+                    <div id="materiItemsContainer">
+                        <!-- Materi items will be added here dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Section F: Quiz (Conditional) -->
+                <div class="section-card conditional-section" id="quizSection">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="section-title mb-0">F. Quiz/Evaluasi
+                            <span class="counter-badge" id="quizCounter">0</span>
+                        </h3>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-custom" id="addQuizBtn">
+                                + Tambah Soal
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="canva-sheet-option">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="saveQuizToCanva" checked>
+                            <label class="form-check-label" for="saveQuizToCanva">
+                                Simpan Hasil Quiz ke Canva Sheet
+                            </label>
+                        </div>
+                        <small class="text-muted">Data hasil quiz akan disimpan secara otomatis ke Canva Sheet</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="quizType" class="form-label">Jenis Quiz</label>
+                        <select class="form-select" id="quizType">
+                            <option value="pilihan_ganda">Pilihan Ganda</option>
+                            <option value="benar_salah">Benar/Salah</option>
+                            <option value="isian_singkat">Isian Singkat</option>
+                            <option value="matching">Mencocokkan</option>
+                            <option value="campuran">Campuran</option>
+                        </select>
+                    </div>
+                    
+                    <div id="quizItemsContainer">
+                        <!-- Quiz items will be added here dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Section G: Game (Conditional) -->
+                <div class="section-card conditional-section" id="gameSection">
+                    <h3 class="section-title">G. Game Edukatif</h3>
+                    
+                    <div class="canva-sheet-option">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="saveGameToCanva" checked>
+                            <label class="form-check-label" for="saveGameToCanva">
+                                Simpan Skor Game ke Canva Sheet
+                            </label>
+                        </div>
+                        <small class="text-muted">Data skor game akan disimpan secara otomatis ke Canva Sheet</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="gameType" class="form-label">Jenis Game</label>
+                        <select class="form-select" id="gameType">
+                            <option value="memory">Game Memory (Mencocokkan Kartu)</option>
+                            <option value="quiz_game">Game Quiz dengan Timer</option>
+                            <option value="drag_drop">Drag and Drop</option>
+                            <option value="puzzle">Puzzle</option>
+                            <option value="simulasi">Simulasi Interaktif</option>
+                            <option value="typing">Game Mengetik Cepat</option>
+                            <option value="maze">Labirin</option>
+                            <option value="trivia">Trivia / Kuis Game</option>
+                            <option value="custom">Lainnya (deskripsikan)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3" id="customGameContainer" style="display: none;">
+                        <label for="customGameDesc" class="form-label">Deskripsi Game Lainnya</label>
+                        <textarea class="form-control" id="customGameDesc" rows="2" placeholder="Deskripsikan jenis game yang Anda inginkan"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="gameTheme" class="form-label">Tema Game</label>
+                        <input type="text" class="form-control" id="gameTheme" placeholder="Contoh: Tema alam, ruang angkasa, sejarah, dll.">
+                    </div>
+                </div>
+                
+                <!-- Section H: Lab Virtual (Conditional) -->
+                <div class="section-card conditional-section" id="labSection">
+                    <h3 class="section-title">H. Lab Virtual / Simulasi</h3>
+                    <div class="mb-3">
+                        <label for="labDescription" class="form-label">Deskripsi Lab Virtual / Simulasi</label>
+                        <textarea class="form-control" id="labDescription" rows="3" placeholder="Deskripsikan lab virtual atau simulasi yang Anda inginkan. Contoh: Simulasi rangkaian listrik sederhana dengan komponen yang dapat diseret dan dihubungkan, atau simulasi percobaan kimia dengan tabung reaksi dan bahan kimia."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="labFeatures" class="form-label">Fitur yang Diinginkan (opsional)</label>
+                        <textarea class="form-control" id="labFeatures" rows="2" placeholder="Contoh: Drag and drop alat, simulasi reaksi, hasil eksperimen, reset, dll."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Additional Options -->
+                <div class="section-card">
+                    <h3 class="section-title">I. Opsi Tambahan</h3>
+                    
+                    <div class="responsive-option">
+                        <h5>Responsivitas</h5>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="responsiveCheck" checked>
+                            <label class="form-check-label" for="responsiveCheck">
+                                Responsif untuk semua perangkat
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="responsiveVertical" checked>
+                            <label class="form-check-label" for="responsiveVertical">
+                                Responsif Vertikal (portrait mode)
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="responsiveHorizontal" checked>
+                            <label class="form-check-label" for="responsiveHorizontal">
+                                Responsif Horizontal (landscape mode)
+                            </label>
+                        </div>
+                        <small class="text-muted">Media pembelajaran harus dapat menyesuaikan tampilan baik dalam orientasi vertikal maupun horizontal</small>
+                    </div>
+                    
+                    <div class="mb-3 mt-3">
+                        <label class="form-label">Fitur Tambahan Lainnya</label>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="darkModeCheck">
+                            <label class="form-check-label" for="darkModeCheck">
+                                Mode Gelap (dark mode)
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="progressTrackingCheck">
+                            <label class="form-check-label" for="progressTrackingCheck">
+                                Pelacakan Progress Belajar
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="backsoundCheck">
+                            <label class="form-check-label" for="backsoundCheck">
+                                Backsound / Musik Latar
+                            </label>
+                        </div>
+                        <div id="backsoundOptions" style="display: none; margin-left: 20px;">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="backsoundControlCheck" checked>
+                                <label class="form-check-label" for="backsoundControlCheck">
+                                    Tombol kontrol backsound (play/pause/volume)
+                                </label>
+                                </div>
+                            <div class="mb-2">
+                                <label for="backsoundUrl" class="form-label">URL Backsound (opsional)</label>
+                                <input type="text" class="form-control" id="backsoundUrl" placeholder="https://example.com/music.mp3">
+                                <small class="text-muted">Biarkan kosong untuk menggunakan backsound default</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="colorScheme" class="form-label">Skema Warna</label>
+                        <select class="form-select" id="colorScheme">
+                            <option value="blue">Biru (default)</option>
+                            <option value="green">Hijau</option>
+                            <option value="purple">Ungu</option>
+                            <option value="red">Merah</option>
+                            <option value="orange">Oranye</option>
+                            <option value="custom">Kustom (deskripsikan)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="customColorContainer" style="display: none;">
+                        <label for="customColorDesc" class="form-label">Deskripsi Skema Warna Kustom</label>
+                        <textarea class="form-control" id="customColorDesc" rows="2" placeholder="Contoh: Warna utama hijau muda (#a8e6cf), aksen merah muda (#ffaaa5)"></textarea>
+                    </div>
+                </div>
+                
+                <!-- Footer Section -->
+                <div class="section-card">
+                    <h3 class="section-title">J. Footer & Kredit</h3>
+                    <div class="mb-3">
+                        <label for="guruName" class="form-label">Nama Guru/Pembuat</label>
+                        <input type="text" class="form-control" id="guruName" value="Guru Contoh">
+                    </div>
+                    <div class="mb-3">
+                        <label for="sekolahName" class="form-label">Nama Sekolah/Institusi</label>
+                        <input type="text" class="form-control" id="sekolahName" value="Sekolah Menengah Atas Contoh">
+                    </div>
+                    <div class="mb-3">
+                        <label for="footerText" class="form-label">Teks Footer Tambahan (opsional)</label>
+                        <textarea class="form-control" id="footerText" rows="2" placeholder="Teks tambahan untuk footer"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Output Section -->
+            <div class="col-lg-4">
+                <div class="sticky-top" style="top: 20px;">
+                    <div class="section-card">
+                        <h3 class="section-title">Prompt yang Dihasilkan</h3>
+                        <p class="text-muted">Prompt ini dapat Anda salin dan gunakan untuk membuat media pembelajaran dengan AI Canva Code</p>
+                        
+                        <div class="prompt-output" id="promptOutput">
+                            Prompt akan muncul di sini...
+                        </div>
+                        
+                        <div class="mt-3 d-grid gap-2">
+                            <button type="button" class="btn btn-custom" id="generateBtn">
+                                <i class="bi bi-magic"></i> Generate Prompt
+                            </button>
+                            <button type="button" class="btn btn-outline-primary" id="copyBtn">
+                                <i class="bi bi-clipboard"></i> Salin Prompt
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="resetBtn">
+                                <i class="bi bi-arrow-clockwise"></i> Reset Form
+                            </button>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <div class="alert alert-info">
+                                <small>
+                                    <strong>Penting:</strong> Prompt ini dirancang khusus untuk AI Canva Code. Data akan disimpan otomatis ke Canva Sheet tanpa perlu kode penyimpanan manual.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-5 text-center text-muted">
+            <p>Generator Prompt Media Pembelajaran untuk Canva Code &copy; 2023</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Initial data
+        const initialData = {
+            menuItems: [
+                { id: 1, name: "Materi", description: "Pelajari materi pembelajaran", iconUrl: "" },
+                { id: 2, name: "Quiz", description: "Uji pemahaman Anda", iconUrl: "" },
+                { id: 3, name: "Game", description: "Belajar sambil bermain", iconUrl: "" },
+                { id: 4, name: "Lab Virtual", description: "Lakukan eksperimen virtual", iconUrl: "" }
+            ],
+            materiItems: [],
+            tujuanItems: [
+                { id: 1, text: "Setelah menyelesaikan media pembelajaran ini, peserta didik mampu memahami konsep dasar, menerapkan pengetahuan dalam situasi nyata, dan mengembangkan keterampilan berpikir kritis." }
+            ],
+            quizItems: [],
+            loginFields: [
+                { id: 1, name: "Nama Lengkap", type: "text", required: true },
+                { id: 2, name: "Kelas", type: "text", required: true }
+            ]
+        };
+
+        // Menu to section mapping
+        const menuSectionMap = {
+            "Materi": "materiSection",
+            "Quiz": "quizSection", 
+            "Game": "gameSection",
+            "Lab Virtual": "labSection"
+        };
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tujuan items
+            initializeTujuanItems();
+            
+            // Initialize menu items
+            initializeMenuItems();
+            
+            // Initialize materi items
+            initializeMateriItems();
+            
+            // Initialize quiz items
+            initializeQuizItems();
+            
+            // Initialize login fields
+            initializeLoginFields();
+            
+            // Update counters
+            updateCounters();
+            
+            // Update conditional sections based on menu
+            updateConditionalSections();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Generate initial prompt
+            generatePrompt();
+        });
+
+        // Initialize tujuan items
+        function initializeTujuanItems() {
+            const container = document.getElementById('tujuanItemsContainer');
+            container.innerHTML = '';
+            
+            initialData.tujuanItems.forEach(item => {
+                addTujuanItemElement(item);
+            });
+        }
+
+        // Initialize menu items
+        function initializeMenuItems() {
+            const container = document.getElementById('menuItemsContainer');
+            container.innerHTML = '';
+            
+            initialData.menuItems.forEach(item => {
+                addMenuItemElement(item);
+            });
+        }
+
+        // Initialize materi items
+        function initializeMateriItems() {
+            const container = document.getElementById('materiItemsContainer');
+            container.innerHTML = '';
+        }
+
+        // Initialize quiz items
+        function initializeQuizItems() {
+            const container = document.getElementById('quizItemsContainer');
+            container.innerHTML = '';
+        }
+
+        // Initialize login fields
+        function initializeLoginFields() {
+            const container = document.getElementById('loginFields');
+            container.innerHTML = '';
+            
+            initialData.loginFields.forEach(field => {
+                addLoginFieldElement(field);
+            });
+        }
+
+        // Add a new tujuan item element
+        function addTujuanItemElement(item = null) {
+            const container = document.getElementById('tujuanItemsContainer');
+            const itemId = item ? item.id : Date.now();
+            const itemText = item ? item.text : '';
+            
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cloneable-item tujuan-item';
+            itemElement.innerHTML = `
+                <div class="row">
+                    <div class="col-md-11">
+                        <label class="form-label">Tujuan Pembelajaran</label>
+                        <textarea class="form-control tujuan-text" rows="2" placeholder="Tulis tujuan pembelajaran">${itemText}</textarea>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button type="button" class="btn btn-sm btn-outline-danger remove-tujuan-btn" style="margin-bottom: 8px;">
+                            ×
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(itemElement);
+            
+            // Add event listener to remove button
+            const removeBtn = itemElement.querySelector('.remove-tujuan-btn');
+            removeBtn.addEventListener('click', function() {
+                itemElement.remove();
+                updateCounters();
+                generatePrompt();
+            });
+            
+            // Add event listeners to textarea
+            const textarea = itemElement.querySelector('.tujuan-text');
+            textarea.addEventListener('input', function() {
+                generatePrompt();
+            });
+            
+            updateCounters();
+        }
+
+        // Add a new menu item element
+        function addMenuItemElement(item = null) {
+            const container = document.getElementById('menuItemsContainer');
+            const itemId = item ? item.id : Date.now();
+            const itemName = item ? item.name : '';
+            const itemDesc = item ? item.description : '';
+            const itemIcon = item ? item.iconUrl : '';
+            
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cloneable-item';
+            itemElement.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="form-label">Nama Menu</label>
+                        <input type="text" class="form-control menu-name" value="${itemName}" placeholder="Contoh: Materi, Quiz, Game">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Icon/Thumbnail URL</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control menu-icon-url" value="${itemIcon}" placeholder="URL gambar">
+                            <button type="button" class="btn btn-outline-secondary preview-icon-btn">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Deskripsi Singkat</label>
+                        <input type="text" class="form-control menu-desc" value="${itemDesc}" placeholder="Deskripsi menu">
+                    </div>
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button type="button" class="btn btn-sm btn-outline-danger remove-menu-btn" style="margin-bottom: 8px;">
+                            ×
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <small class="text-muted">Contoh URL icon: https://example.com/icon.png</small>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="icon-preview-container mt-1">
+                            <img src="${itemIcon || 'https://via.placeholder.com/40x40?text=Icon'}" 
+                                 class="icon-preview" 
+                                 alt="Preview icon"
+                                 onerror="this.src='https://via.placeholder.com/40x40?text=Error'">
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(itemElement);
+            
+            // Add event listener to remove button
+            const removeBtn = itemElement.querySelector('.remove-menu-btn');
+            removeBtn.addEventListener('click', function() {
+                itemElement.remove();
+                updateCounters();
+                updateConditionalSections();
+                generatePrompt();
+            });
+            
+            // Add event listener to preview button
+            const previewBtn = itemElement.querySelector('.preview-icon-btn');
+            previewBtn.addEventListener('click', function() {
+                const urlInput = itemElement.querySelector('.menu-icon-url');
+                const previewImg = itemElement.querySelector('.icon-preview');
+                previewImg.src = urlInput.value || 'https://via.placeholder.com/40x40?text=Icon';
+            });
+            
+            // Add event listeners to inputs
+            const inputs = itemElement.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    // Update icon preview if icon URL changes
+                    if (input.classList.contains('menu-icon-url')) {
+                        const previewImg = itemElement.querySelector('.icon-preview');
+                        previewImg.src = input.value || 'https://via.placeholder.com/40x40?text=Icon';
+                    }
+                    
+                    // Update conditional sections if menu name changes
+                    if (input.classList.contains('menu-name')) {
+                        updateConditionalSections();
+                    }
+                    
+                    generatePrompt();
+                });
+            });
+            
+            updateCounters();
+        }
+
+        // Add a new materi item element
+        function addMateriItemElement(item = null) {
+            const container = document.getElementById('materiItemsContainer');
+            const itemId = item ? item.id : Date.now();
+            const itemJudul = item ? item.judul : '';
+            const itemKonten = item ? item.konten : '';
+            const itemMediaUrl = item ? item.mediaUrl : '';
+            
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cloneable-item materi-item';
+            itemElement.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="form-label">Judul Materi</label>
+                        <input type="text" class="form-control materi-judul" value="${itemJudul}" placeholder="Judul materi">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">URL Media (gambar/video/audio)</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control materi-media-url" value="${itemMediaUrl}" placeholder="URL gambar/video/audio">
+                            <button type="button" class="btn btn-outline-secondary preview-media-btn">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Konten Materi</label>
+                        <textarea class="form-control materi-konten" rows="2" placeholder="Isi/konten materi">${itemKonten}</textarea>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button type="button" class="btn btn-sm btn-outline-danger remove-materi-btn" style="margin-bottom: 8px;">
+                            ×
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <small class="text-muted">Contoh: https://example.com/image.jpg</small>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="media-preview-container mt-1">
+                            <img src="${itemMediaUrl || 'https://via.placeholder.com/100x60?text=Media'}" 
+                                 class="media-preview" 
+                                 alt="Preview media"
+                                 onerror="this.src='https://via.placeholder.com/100x60?text=Error'">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <small class="text-muted">Gunakan URL langsung, bukan iframe/embed</small>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(itemElement);
+            
+            // Add event listener to remove button
+            const removeBtn = itemElement.querySelector('.remove-materi-btn');
+            removeBtn.addEventListener('click', function() {
+                itemElement.remove();
+                updateCounters();
+                generatePrompt();
+            });
+            
+            // Add event listener to preview button
+            const previewBtn = itemElement.querySelector('.preview-media-btn');
+            previewBtn.addEventListener('click', function() {
+                const urlInput = itemElement.querySelector('.materi-media-url');
+                const previewImg = itemElement.querySelector('.media-preview');
+                previewImg.src = urlInput.value || 'https://via.placeholder.com/100x60?text=Media';
+            });
+            
+            // Add event listeners to inputs
+            const inputs = itemElement.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    // Update media preview if media URL changes
+                    if (input.classList.contains('materi-media-url')) {
+                        const previewImg = itemElement.querySelector('.media-preview');
+                        previewImg.src = input.value || 'https://via.placeholder.com/100x60?text=Media';
+                    }
+                    
+                    generatePrompt();
+                });
+            });
+            
+            updateCounters();
+        }
+
+        // Add a new quiz item element
+        function addQuizItemElement(item = null) {
+            const container = document.getElementById('quizItemsContainer');
+            const itemId = item ? item.id : Date.now();
+            const itemPertanyaan = item ? item.pertanyaan : '';
+            const itemOptions = item ? item.options : ['', '', '', ''];
+            const itemJawaban = item ? item.jawaban : 0;
+            
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cloneable-item quiz-item';
+            itemElement.innerHTML = `
+                <div class="row">
+                    <div class="col-md-11">
+                        <label class="form-label">Pertanyaan</label>
+                        <input type="text" class="form-control quiz-pertanyaan" value="${itemPertanyaan}" placeholder="Masukkan pertanyaan">
+                    </div>
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button type="button" class="btn btn-sm btn-outline-danger remove-quiz-btn" style="margin-bottom: 8px;">
+                            ×
+                        </button>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label class="form-label">Opsi A</label>
+                        <input type="text" class="form-control quiz-option" data-index="0" value="${itemOptions[0]}" placeholder="Opsi A">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Opsi B</label>
+                        <input type="text" class="form-control quiz-option" data-index="1" value="${itemOptions[1]}" placeholder="Opsi B">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label class="form-label">Opsi C</label>
+                        <input type="text" class="form-control quiz-option" data-index="2" value="${itemOptions[2]}" placeholder="Opsi C">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Opsi D</label>
+                        <input type="text" class="form-control quiz-option" data-index="3" value="${itemOptions[3]}" placeholder="Opsi D">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label class="form-label">Jawaban Benar</label>
+                        <select class="form-select quiz-jawaban">
+                            <option value="0" ${itemJawaban == 0 ? 'selected' : ''}>A</option>
+                            <option value="1" ${itemJawaban == 1 ? 'selected' : ''}>B</option>
+                            <option value="2" ${itemJawaban == 2 ? 'selected' : ''}>C</option>
+                            <option value="3" ${itemJawaban == 3 ? 'selected' : ''}>D</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(itemElement);
+            
+            // Add event listener to remove button
+            const removeBtn = itemElement.querySelector('.remove-quiz-btn');
+            removeBtn.addEventListener('click', function() {
+                itemElement.remove();
+                updateQuizCounter();
+                generatePrompt();
+            });
+            
+            // Add event listeners to inputs
+            const inputs = itemElement.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                input.addEventListener('input', generatePrompt);
+                input.addEventListener('change', generatePrompt);
+            });
+            
+            updateQuizCounter();
+        }
+
+        // Add a new login field element
+        function addLoginFieldElement(field = null) {
+            const container = document.getElementById('loginFields');
+            const fieldId = field ? field.id : Date.now();
+            const fieldName = field ? field.name : '';
+            const fieldType = field ? field.type : 'text';
+            const fieldRequired = field ? field.required : true;
+            
+            const fieldElement = document.createElement('div');
+            fieldElement.className = 'login-field-item';
+            fieldElement.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="form-label">Nama Field</label>
+                        <input type="text" class="form-control login-field-name" value="${fieldName}" placeholder="Contoh: Nama, Kelas">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Tipe Input</label>
+                        <select class="form-select login-field-type">
+                            <option value="text" ${fieldType === 'text' ? 'selected' : ''}>Text</option>
+                            <option value="password" ${fieldType === 'password' ? 'selected' : ''}>Password</option>
+                            <option value="email" ${fieldType === 'email' ? 'selected' : ''}>Email</option>
+                            <option value="number" ${fieldType === 'number' ? 'selected' : ''}>Number</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check mt-4">
+                            <input class="form-check-input login-field-required" type="checkbox" ${fieldRequired ? 'checked' : ''}>
+                            <label class="form-check-label">
+                                Wajib diisi
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="button" class="btn btn-sm btn-outline-danger remove-login-field-btn" style="margin-bottom: 8px;">
+                            ×
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(fieldElement);
+            
+            // Add event listener to remove button
+            const removeBtn = fieldElement.querySelector('.remove-login-field-btn');
+            removeBtn.addEventListener('click', function() {
+                fieldElement.remove();
+                generatePrompt();
+            });
+            
+            // Add event listeners to inputs
+            const inputs = fieldElement.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                input.addEventListener('change', generatePrompt);
+                input.addEventListener('input', generatePrompt);
+            });
+        }
+
+        // Update counters
+        function updateCounters() {
+            document.getElementById('menuCounter').textContent = document.querySelectorAll('#menuItemsContainer .cloneable-item').length;
+            document.getElementById('materiCounter').textContent = document.querySelectorAll('#materiItemsContainer .cloneable-item').length;
+            document.getElementById('tujuanCounter').textContent = document.querySelectorAll('#tujuanItemsContainer .cloneable-item').length;
+            updateQuizCounter();
+        }
+
+        // Update quiz counter
+        function updateQuizCounter() {
+            const quizCount = document.querySelectorAll('#quizItemsContainer .cloneable-item').length;
+            document.getElementById('quizCounter').textContent = quizCount;
+        }
+
+        // Update conditional sections based on menu items
+        function updateConditionalSections() {
+            // Get all menu names
+            const menuNames = Array.from(document.querySelectorAll('.menu-name')).map(input => input.value.trim());
+            
+            // Show/hide sections based on menu
+            const sections = ['materiSection', 'quizSection', 'gameSection', 'labSection'];
+            
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                const sectionName = Object.keys(menuSectionMap).find(key => menuSectionMap[key] === sectionId);
+                
+                if (menuNames.includes(sectionName)) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Add tujuan button
+            document.getElementById('addTujuanBtn').addEventListener('click', function() {
+                addTujuanItemElement();
+                generatePrompt();
+            });
+            
+            // Add menu button
+            document.getElementById('addMenuBtn').addEventListener('click', function() {
+                addMenuItemElement();
+                updateConditionalSections();
+                generatePrompt();
+            });
+            
+            // Add materi button
+            document.getElementById('addMateriBtn').addEventListener('click', function() {
+                addMateriItemElement();
+                generatePrompt();
+            });
+            
+            // Add quiz button
+            document.getElementById('addQuizBtn').addEventListener('click', function() {
+                addQuizItemElement();
+                generatePrompt();
+            });
+            
+            // Add login field button
+            document.getElementById('addLoginField').addEventListener('click', function() {
+                addLoginFieldElement();
+                generatePrompt();
+            });
+            
+            // Login option change
+            document.querySelectorAll('input[name="loginOption"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const loginFieldsContainer = document.getElementById('loginFieldsContainer');
+                    if (this.value === 'yes') {
+                        loginFieldsContainer.style.display = 'block';
+                    } else {
+                        loginFieldsContainer.style.display = 'none';
+                    }
+                    generatePrompt();
+                });
+            });
+            
+            // Backsound checkbox
+            document.getElementById('backsoundCheck').addEventListener('change', function() {
+                const backsoundOptions = document.getElementById('backsoundOptions');
+                if (this.checked) {
+                    backsoundOptions.style.display = 'block';
+                } else {
+                    backsoundOptions.style.display = 'none';
+                }
+                generatePrompt();
+            });
+            
+            // Game type change
+            document.getElementById('gameType').addEventListener('change', function() {
+                const customGameContainer = document.getElementById('customGameContainer');
+                if (this.value === 'custom') {
+                    customGameContainer.style.display = 'block';
+                } else {
+                    customGameContainer.style.display = 'none';
+                }
+                generatePrompt();
+            });
+            
+            // Responsive vertical/horizontal checkboxes
+            document.getElementById('responsiveVertical').addEventListener('change', function() {
+                if (!this.checked && !document.getElementById('responsiveHorizontal').checked) {
+                    document.getElementById('responsiveCheck').checked = false;
+                }
+                generatePrompt();
+            });
+            
+            document.getElementById('responsiveHorizontal').addEventListener('change', function() {
+                if (!this.checked && !document.getElementById('responsiveVertical').checked) {
+                    document.getElementById('responsiveCheck').checked = false;
+                }
+                generatePrompt();
+            });
+            
+            document.getElementById('responsiveCheck').addEventListener('change', function() {
+                if (this.checked) {
+                    document.getElementById('responsiveVertical').checked = true;
+                    document.getElementById('responsiveHorizontal').checked = true;
+                } else {
+                    document.getElementById('responsiveVertical').checked = false;
+                    document.getElementById('responsiveHorizontal').checked = false;
+                }
+                generatePrompt();
+            });
+            
+            // Generate button
+            document.getElementById('generateBtn').addEventListener('click', generatePrompt);
+            
+            // Copy button
+            document.getElementById('copyBtn').addEventListener('click', copyPrompt);
+            
+            // Reset button
+            document.getElementById('resetBtn').addEventListener('click', resetForm);
+            
+            // Loading screen type change
+            document.getElementById('loadingScreenType').addEventListener('change', function() {
+                const customContainer = document.getElementById('customLoadingContainer');
+                if (this.value === 'custom') {
+                    customContainer.style.display = 'block';
+                } else {
+                    customContainer.style.display = 'none';
+                }
+                generatePrompt();
+            });
+            
+            // Color scheme change
+            document.getElementById('colorScheme').addEventListener('change', function() {
+                const customContainer = document.getElementById('customColorContainer');
+                if (this.value === 'custom') {
+                    customContainer.style.display = 'block';
+                } else {
+                    customContainer.style.display = 'none';
+                }
+                generatePrompt();
+            });
+            
+            // Add event listeners to all form controls
+            const formControls = document.querySelectorAll('select, input:not(.menu-name,.menu-desc,.menu-icon-url,.materi-judul,.materi-konten,.materi-media-url,.tujuan-text,.quiz-pertanyaan,.quiz-option,.login-field-name), textarea:not(.materi-konten,.tujuan-text), input[type="checkbox"]:not(.login-field-required)');
+            formControls.forEach(control => {
+                control.addEventListener('change', generatePrompt);
+                control.addEventListener('input', generatePrompt);
+            });
+        }
+
+        // Generate the prompt
+        function generatePrompt() {
+            // Collect all data from the form
+            const data = collectFormData();
+            
+            // Build the prompt
+            const prompt = buildPrompt(data);
+            
+            // Display the prompt
+            document.getElementById('promptOutput').textContent = prompt;
+        }
+
+        // Collect form data
+        function collectFormData() {
+            // Collect tujuan items
+            const tujuanItems = [];
+            const tujuanElements = document.querySelectorAll('#tujuanItemsContainer .cloneable-item');
+            tujuanElements.forEach(element => {
+                const text = element.querySelector('.tujuan-text').value;
+                if (text.trim() !== '') {
+                    tujuanItems.push({ text });
+                }
+            });
+            
+            // Collect menu items
+            const menuItems = [];
+            const menuElements = document.querySelectorAll('#menuItemsContainer .cloneable-item');
+            menuElements.forEach(element => {
+                const name = element.querySelector('.menu-name').value;
+                const desc = element.querySelector('.menu-desc').value;
+                const iconUrl = element.querySelector('.menu-icon-url').value;
+                if (name.trim() !== '') {
+                    menuItems.push({ name, desc, iconUrl });
+                }
+            });
+            
+            // Collect materi items
+            const materiItems = [];
+            const materiElements = document.querySelectorAll('#materiItemsContainer .cloneable-item');
+            materiElements.forEach(element => {
+                const judul = element.querySelector('.materi-judul').value;
+                const konten = element.querySelector('.materi-konten').value;
+                const mediaUrl = element.querySelector('.materi-media-url').value;
+                if (judul.trim() !== '') {
+                    materiItems.push({ judul, konten, mediaUrl });
+                }
+            });
+            
+            // Collect quiz items
+            const quizItems = [];
+            const quizElements = document.querySelectorAll('#quizItemsContainer .cloneable-item');
+            quizElements.forEach(element => {
+                const pertanyaan = element.querySelector('.quiz-pertanyaan').value;
+                const options = Array.from(element.querySelectorAll('.quiz-option')).map(input => input.value);
+                const jawaban = parseInt(element.querySelector('.quiz-jawaban').value);
+                if (pertanyaan.trim() !== '') {
+                    quizItems.push({ pertanyaan, options, jawaban });
+                }
+            });
+            
+            // Collect login fields
+            const loginFields = [];
+            const loginFieldElements = document.querySelectorAll('#loginFields .login-field-item');
+            loginFieldElements.forEach(element => {
+                const name = element.querySelector('.login-field-name').value;
+                const type = element.querySelector('.login-field-type').value;
+                const required = element.querySelector('.login-field-required').checked;
+                if (name.trim() !== '') {
+                    loginFields.push({ name, type, required });
+                }
+            });
+            
+            // Collect other form data
+            const loadingType = document.getElementById('loadingScreenType').value;
+            const customLoading = document.getElementById('customLoadingDesc').value;
+            const judul = document.getElementById('judul').value;
+            const subJudul = document.getElementById('subJudul').value;
+            const loginOption = document.querySelector('input[name="loginOption"]:checked').value;
+            const trackLearningTime = document.getElementById('trackLearningTime').checked;
+            const quizType = document.getElementById('quizType').value;
+            const saveQuizToCanva = document.getElementById('saveQuizToCanva').checked;
+            const gameType = document.getElementById('gameType').value;
+            const customGameDesc = document.getElementById('customGameDesc').value;
+            const gameTheme = document.getElementById('gameTheme').value;
+            const saveGameToCanva = document.getElementById('saveGameToCanva').checked;
+            const labDescription = document.getElementById('labDescription').value;
+            const labFeatures = document.getElementById('labFeatures').value;
+            const responsive = document.getElementById('responsiveCheck').checked;
+            const responsiveVertical = document.getElementById('responsiveVertical').checked;
+            const responsiveHorizontal = document.getElementById('responsiveHorizontal').checked;
+            const darkMode = document.getElementById('darkModeCheck').checked;
+            const progressTracking = document.getElementById('progressTrackingCheck').checked;
+            const backsound = document.getElementById('backsoundCheck').checked;
+            const backsoundControl = document.getElementById('backsoundControlCheck').checked;
+            const backsoundUrl = document.getElementById('backsoundUrl').value;
+            const colorScheme = document.getElementById('colorScheme').value;
+            const customColor = document.getElementById('customColorDesc').value;
+            const guruName = document.getElementById('guruName').value;
+            const sekolahName = document.getElementById('sekolahName').value;
+            const footerText = document.getElementById('footerText').value;
+            
+            return {
+                loadingType,
+                customLoading,
+                judul,
+                subJudul,
+                loginOption,
+                loginFields,
+                tujuanItems,
+                menuItems,
+                materiItems,
+                trackLearningTime,
+                quizType,
+                quizItems,
+                saveQuizToCanva,
+                gameType,
+                customGameDesc,
+                gameTheme,
+                saveGameToCanva,
+                labDescription,
+                labFeatures,
+                responsive,
+                responsiveVertical,
+                responsiveHorizontal,
+                darkMode,
+                progressTracking,
+                backsound,
+                backsoundControl,
+                backsoundUrl,
+                colorScheme,
+                customColor,
+                guruName,
+                sekolahName,
+                footerText
+            };
+        }
+
+        // Build the prompt from collected data
+        function buildPrompt(data) {
+            let prompt = "Buatkan kode HTML, CSS, dan JavaScript dalam satu file untuk media pembelajaran interaktif dengan spesifikasi berikut. Kode ini akan digunakan di Canva Code, jadi semua data akan disimpan otomatis ke Canva Sheet:\n\n";
+            
+            // Loading Screen
+            prompt += "A. LOADING SCREEN:\n";
+            if (data.loadingType === 'custom' && data.customLoading.trim() !== '') {
+                prompt += `- ${data.customLoading}\n`;
+            } else {
+                const loadingTypes = {
+                    'simple': 'Loading screen sederhana dengan spinner dan teks',
+                    'animated': 'Loading screen dengan animasi yang menarik',
+                    'progress': 'Loading screen dengan progress bar yang menunjukkan progres loading',
+                    'minimal': 'Loading screen minimalis dengan desain clean'
+                };
+                prompt += `- ${loadingTypes[data.loadingType]}\n`;
+            }
+            
+            // Header & Login
+            prompt += "\nB. HEADER & LOGIN:\n";
+            prompt += `- Judul: ${data.judul}\n`;
+            prompt += `- Sub Judul: ${data.subJudul}\n`;
+            
+            if (data.loginOption === 'yes' && data.loginFields.length > 0) {
+                prompt += "- SISTEM LOGIN: Di awal aplikasi, tampilkan form login dengan field berikut:\n";
+                data.loginFields.forEach((field, index) => {
+                    prompt += `  ${index + 1}. ${field.name} (tipe: ${field.type}, ${field.required ? 'wajib diisi' : 'opsional'})\n`;
+                });
+            } else {
+                prompt += "- TANPA LOGIN: Langsung tampilkan konten utama\n";
+            }
+            
+            // Tujuan Pembelajaran
+            prompt += "\nC. TUJUAN PEMBELAJARAN:\n";
+            if (data.tujuanItems.length > 0) {
+                prompt += "- Tujuan pembelajaran harus ditampilkan di bagian khusus sebelum materi\n";
+                data.tujuanItems.forEach((item, index) => {
+                    prompt += `  ${index + 1}. ${item.text}\n`;
+                });
+            } else {
+                prompt += "- Tidak ada tujuan spesifik, buat standar\n";
+            }
+            
+            // Menu
+            prompt += "\nD. MENU:\n";
+            if (data.menuItems.length > 0) {
+                prompt += "- Menu harus responsif (card untuk desktop, hamburger untuk mobile)\n";
+                prompt += "- Setiap menu harus memiliki icon/thumbnail dari URL yang diberikan\n";
+                prompt += "- Daftar menu yang harus ada:\n";
+                data.menuItems.forEach((item, index) => {
+                    prompt += `  ${index + 1}. ${item.name}: ${item.desc}\n`;
+                    if (item.iconUrl.trim() !== '') {
+                        prompt += `     Icon URL: ${item.iconUrl}\n`;
+                    }
+                });
+            } else {
+                prompt += "- Tidak ada menu spesifik, buat menu standar\n";
+            }
+            
+            // Materi (only if "Materi" is in menu)
+            const menuNames = data.menuItems.map(item => item.name);
+            if (menuNames.includes("Materi") && data.materiItems.length > 0) {
+                prompt += "\nE. MATERI:\n";
+                prompt += "- Setiap materi dalam bentuk card yang dapat diperluas\n";
+                prompt += "- Setiap materi dapat memiliki media (gambar/video/audio) dari URL langsung\n";
+                
+                if (data.trackLearningTime) {
+                    prompt += "- AKTIFKAN PELACAKAN WAKTU BELAJAR: Tampilkan timer yang menghitung waktu belajar dan simpan data waktu ke Canva Sheet\n";
+                }
+                
+                prompt += "- Daftar materi:\n";
+                data.materiItems.forEach((item, index) => {
+                    prompt += `  ${index + 1}. ${item.judul}\n`;
+                    if (item.konten.trim() !== '') {
+                        prompt += `     Konten: ${item.konten}\n`;
+                    }
+                    if (item.mediaUrl.trim() !== '') {
+                        prompt += `     Media URL: ${item.mediaUrl}\n`;
+                    }
+                });
+            }
+            
+            // Quiz (only if "Quiz" is in menu)
+            if (menuNames.includes("Quiz")) {
+                prompt += "\nF. QUIZ/EVALUASI:\n";
+                prompt += `- Jenis: ${getQuizTypeName(data.quizType)}\n`;
+                
+                if (data.saveQuizToCanva) {
+                    prompt += "- SIMPAN HASIL KE CANVA SHEET: Data hasil quiz harus disimpan otomatis ke Canva Sheet\n";
+                }
+                
+                if (data.quizItems.length > 0) {
+                    prompt += "- Daftar soal quiz:\n";
+                    data.quizItems.forEach((item, index) => {
+                        prompt += `  ${index + 1}. ${item.pertanyaan}\n`;
+                        item.options.forEach((option, optIndex) => {
+                            if (option.trim() !== '') {
+                                prompt += `     ${String.fromCharCode(65 + optIndex)}. ${option}\n`;
+                            }
+                        });
+                        prompt += `     Jawaban benar: ${String.fromCharCode(65 + item.jawaban)}\n`;
+                    });
+                } else {
+                    prompt += "- Buat 5 soal quiz dengan jawaban pilihan ganda\n";
+                }
+                
+                prompt += "- Tampilkan hasil akhir dengan skor dan review jawaban\n";
+            }
+            
+            // Game (only if "Game" is in menu)
+            if (menuNames.includes("Game")) {
+                prompt += "\nG. GAME EDUKATIF:\n";
+                
+                if (data.saveGameToCanva) {
+                    prompt += "- SIMPAN SKOR KE CANVA SHEET: Data skor game harus disimpan otomatis ke Canva Sheet\n";
+                }
+                
+                if (data.gameType === 'custom' && data.customGameDesc.trim() !== '') {
+                    prompt += `- Jenis game: ${data.customGameDesc}\n`;
+                } else {
+                    prompt += `- Jenis game: ${getGameTypeName(data.gameType)}\n`;
+                }
+                
+                if (data.gameTheme.trim() !== '') {
+                    prompt += `- Tema game: ${data.gameTheme}\n`;
+                }
+                
+                prompt += "- Game harus edukatif dan sesuai dengan materi pembelajaran\n";
+                prompt += "- Game harus memiliki sistem skor dan timer jika relevan\n";
+            }
+            
+            // Lab Virtual (only if "Lab Virtual" is in menu)
+            if (menuNames.includes("Lab Virtual")) {
+                prompt += "\nH. LAB VIRTUAL/SIMULASI:\n";
+                prompt += `- Deskripsi: ${data.labDescription}\n`;
+                if (data.labFeatures.trim() !== '') {
+                    prompt += `- Fitur yang diinginkan: ${data.labFeatures}\n`;
+                }
+                prompt += "- Buat simulasi interaktif yang realistis\n";
+            }
+            
+            // Responsivitas
+            prompt += "\nI. RESPONSIVITAS:\n";
+            if (data.responsive) {
+                prompt += "- HARUS RESPONSIF untuk semua perangkat dan orientasi layar\n";
+                
+                if (data.responsiveVertical) {
+                    prompt += "- RESPONSIF VERTIKAL (portrait mode): Tampilan harus optimal pada perangkat dengan orientasi vertikal\n";
+                    prompt += "  - Konten harus dapat di-scroll dengan baik\n";
+                    prompt += "  - Font size harus menyesuaikan\n";
+                    prompt += "  - Tombol dan elemen interaktif harus mudah disentuh\n";
+                }
+                
+                if (data.responsiveHorizontal) {
+                    prompt += "- RESPONSIF HORIZONTAL (landscape mode): Tampilan harus optimal pada perangkat dengan orientasi horizontal\n";
+                    prompt += "  - Manfaatkan lebar layar yang lebih besar\n";
+                    prompt += "  - Gunakan layout grid atau flexbox untuk menata konten\n";
+                    prompt += "  - Elemen dapat ditampilkan berdampingan jika memungkinkan\n";
+                }
+                
+                prompt += "- Gunakan media queries untuk menangani berbagai ukuran layar\n";
+                prompt += "- Pastikan tidak ada konten yang terpotong atau overlap\n";
+            } else {
+                prompt += "- Tidak perlu responsif\n";
+            }
+            
+            // Additional requirements
+            prompt += "\nJ. PERSYARATAN TEKNIS LAINNYA:\n";
+            prompt += `- ${data.darkMode ? 'Sertakan mode gelap (dark mode)' : 'Tidak perlu mode gelap'}\n`;
+            prompt += `- ${data.progressTracking ? 'Sertakan pelacakan progress belajar' : 'Tidak perlu pelacakan progress'}\n`;
+            
+            if (data.backsound) {
+                prompt += "- Sertakan backsound/musik latar\n";
+                prompt += `- ${data.backsoundControl ? 'Sertakan tombol kontrol backsound (play/pause/volume)' : 'Backsound otomatis tanpa kontrol'}\n`;
+                if (data.backsoundUrl.trim() !== '') {
+                    prompt += `- URL backsound: ${data.backsoundUrl}\n`;
+                    prompt += "- Gunakan URL langsung untuk audio, bukan embed/iframe\n";
+                }
+            }
+            
+            // Design
+            prompt += "\nK. DESAIN & TAMPILAN:\n";
+            if (data.colorScheme === 'custom' && data.customColor.trim() !== '') {
+                prompt += `- Skema warna: ${data.customColor}\n`;
+            } else if (data.colorScheme !== 'blue') {
+                prompt += `- Skema warna: ${data.colorScheme}\n`;
+            }
+            prompt += "- Gunakan Bootstrap 5 untuk styling\n";
+            prompt += "- Gunakan ikon dari Bootstrap Icons\n";
+            prompt += "- Buat UI yang menarik dan user-friendly\n";
+            
+            // Footer
+            prompt += "\nL. FOOTER & KREDIT:\n";
+            prompt += `- Nama Guru/Pembuat: ${data.guruName}\n`;
+            prompt += `- Sekolah/Institusi: ${data.sekolahName}\n`;
+            if (data.footerText.trim() !== '') {
+                prompt += `- Teks footer tambahan: ${data.footerText}\n`;
+            }
+            
+            // Output format
+            prompt += "\nM. FORMAT OUTPUT (UNTUK CANVA CODE):\n";
+            prompt += "- Semua kode dalam satu file HTML\n";
+            prompt += "- Kode harus lengkap dan dapat langsung dijalankan di Canva Code\n";
+            prompt += "- Data akan disimpan otomatis ke Canva Sheet tanpa kode penyimpanan manual\n";
+            prompt += "- Tambahkan komentar pada bagian penting\n";
+            prompt += "- Pastikan tidak ada error di console\n";
+            prompt += "- Gunakan URL langsung untuk semua media (gambar, video, audio), bukan iframe/embed\n";
+            prompt += "- Optimalkan untuk performa dan loading yang cepat\n";
+            prompt += "- Pastikan responsif baik pada orientasi vertikal maupun horizontal\n";
+            
+            return prompt;
+        }
+
+        // Helper functions
+        function getQuizTypeName(value) {
+            const types = {
+                'pilihan_ganda': 'Pilihan Ganda',
+                'benar_salah': 'Benar/Salah',
+                'isian_singkat': 'Isian Singkat',
+                'matching': 'Mencocokkan',
+                'campuran': 'Campuran (beberapa jenis)'
+            };
+            return types[value] || value;
+        }
+
+        function getGameTypeName(value) {
+            const types = {
+                'memory': 'Game Memory (mencocokkan kartu)',
+                'quiz_game': 'Game Quiz dengan timer',
+                'drag_drop': 'Drag and Drop',
+                'puzzle': 'Puzzle',
+                'simulasi': 'Simulasi Interaktif',
+                'typing': 'Game Mengetik Cepat',
+                'maze': 'Labirin',
+                'trivia': 'Trivia / Kuis Game'
+            };
+            return types[value] || value;
+        }
+
+        // Copy prompt to clipboard
+        function copyPrompt() {
+            const promptText = document.getElementById('promptOutput').textContent;
+            navigator.clipboard.writeText(promptText).then(() => {
+                // Change button text temporarily
+                const copyBtn = document.getElementById('copyBtn');
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="bi bi-check2"></i> Tersalin!';
+                copyBtn.classList.remove('btn-outline-primary');
+                copyBtn.classList.add('btn-success');
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove('btn-success');
+                    copyBtn.classList.add('btn-outline-primary');
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin: ', err);
+                alert('Gagal menyalin prompt. Silakan salin secara manual.');
+            });
+        }
+
+        // Reset form
+        function resetForm() {
+            if (confirm('Apakah Anda yakin ingin mengatur ulang formulir? Semua perubahan akan hilang.')) {
+                // Reset form elements
+                document.getElementById('judul').value = 'Media Pembelajaran Interaktif';
+                document.getElementById('subJudul').value = 'Belajar dengan cara yang menyenangkan dan efektif';
+                document.getElementById('loadingScreenType').value = 'simple';
+                document.getElementById('customLoadingDesc').value = '';
+                document.getElementById('loginNo').checked = true;
+                document.getElementById('trackLearningTime').checked = false;
+                document.getElementById('quizType').value = 'pilihan_ganda';
+                document.getElementById('saveQuizToCanva').checked = true;
+                document.getElementById('gameType').value = 'memory';
+                document.getElementById('customGameDesc').value = '';
+                document.getElementById('gameTheme').value = '';
+                document.getElementById('saveGameToCanva').checked = true;
+                document.getElementById('labDescription').value = '';
+                document.getElementById('labFeatures').value = '';
+                document.getElementById('responsiveCheck').checked = true;
+                document.getElementById('responsiveVertical').checked = true;
+                document.getElementById('responsiveHorizontal').checked = true;
+                document.getElementById('darkModeCheck').checked = false;
+                document.getElementById('progressTrackingCheck').checked = false;
+                document.getElementById('backsoundCheck').checked = false;
+                document.getElementById('backsoundControlCheck').checked = true;
+                document.getElementById('backsoundUrl').value = '';
+                document.getElementById('colorScheme').value = 'blue';
+                document.getElementById('customColorDesc').value = '';
+                document.getElementById('guruName').value = 'Guru Contoh';
+                document.getElementById('sekolahName').value = 'Sekolah Menengah Atas Contoh';
+                document.getElementById('footerText').value = '';
+                
+                // Hide containers
+                document.getElementById('customLoadingContainer').style.display = 'none';
+                document.getElementById('customColorContainer').style.display = 'none';
+                document.getElementById('loginFieldsContainer').style.display = 'none';
+                document.getElementById('backsoundOptions').style.display = 'none';
+                document.getElementById('customGameContainer').style.display = 'none';
+                
+                // Reset tujuan, menu, materi, quiz, and login fields
+                initializeTujuanItems();
+                initializeMenuItems();
+                initializeMateriItems();
+                initializeQuizItems();
+                initializeLoginFields();
+                
+                // Update conditional sections
+                updateConditionalSections();
+                
+                // Generate new prompt
+                generatePrompt();
+            }
+        }
+    </script>
+</body>
+</html>
