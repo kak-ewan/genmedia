@@ -548,6 +548,69 @@
             gap: 10px;
             justify-content: flex-end;
         }
+        
+        /* Layout Vertikal untuk Input */
+        .input-group-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .input-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .menu-detail-container {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .menu-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .preview-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .preview-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .input-row {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            
+            .input-row .form-label {
+                flex: 0 0 25%;
+                max-width: 25%;
+                padding-top: 12px;
+            }
+            
+            .input-row .form-control,
+            .input-row .form-select,
+            .input-row textarea {
+                flex: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -626,16 +689,18 @@
                         </h2>
                         <div id="collapseB" class="accordion-collapse collapse" data-bs-parent="#formAccordion">
                             <div class="accordion-body">
-                                <div class="mb-3">
-                                    <label for="judul" class="form-label">Judul Media Pembelajaran</label>
-                                    <input type="text" class="form-control" id="judul" value="Media Pembelajaran Interaktif">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="subJudul" class="form-label">Sub Judul</label>
-                                    <input type="text" class="form-control" id="subJudul" value="Belajar dengan cara yang menyenangkan dan efektif">
+                                <div class="input-group-vertical">
+                                    <div class="input-row">
+                                        <label for="judul" class="form-label">Judul Media Pembelajaran</label>
+                                        <input type="text" class="form-control" id="judul" value="Media Pembelajaran Interaktif">
+                                    </div>
+                                    <div class="input-row">
+                                        <label for="subJudul" class="form-label">Sub Judul</label>
+                                        <input type="text" class="form-control" id="subJudul" value="Belajar dengan cara yang menyenangkan dan efektif">
+                                    </div>
                                 </div>
                                 
-                                <div class="mb-3">
+                                <div class="mt-4">
                                     <label class="form-label">Sistem Login</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="loginOption" id="loginNo" value="no" checked>
@@ -652,7 +717,7 @@
                                 </div>
                                 
                                 <div id="loginFieldsContainer" style="display: none;">
-                                    <div class="mb-3">
+                                    <div class="mt-3">
                                         <label class="form-label">Field Login yang Diperlukan</label>
                                         <div id="loginFields">
                                             <!-- Login fields will be added here dynamically -->
@@ -1005,17 +1070,19 @@
                         </h2>
                         <div id="collapseJ" class="accordion-collapse collapse" data-bs-parent="#formAccordion">
                             <div class="accordion-body">
-                                <div class="mb-3">
-                                    <label for="guruName" class="form-label">Nama Guru/Pembuat</label>
-                                    <input type="text" class="form-control" id="guruName" value="Guru Contoh">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="sekolahName" class="form-label">Nama Sekolah/Institusi</label>
-                                    <input type="text" class="form-control" id="sekolahName" value="Sekolah Menengah Atas Contoh">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="footerText" class="form-label">Teks Footer Tambahan (opsional)</label>
-                                    <textarea class="form-control" id="footerText" rows="2" placeholder="Teks tambahan untuk footer"></textarea>
+                                <div class="input-group-vertical">
+                                    <div class="input-row">
+                                        <label for="guruName" class="form-label">Nama Guru/Pembuat</label>
+                                        <input type="text" class="form-control" id="guruName" value="Guru Contoh">
+                                    </div>
+                                    <div class="input-row">
+                                        <label for="sekolahName" class="form-label">Nama Sekolah/Institusi</label>
+                                        <input type="text" class="form-control" id="sekolahName" value="Sekolah Menengah Atas Contoh">
+                                    </div>
+                                    <div class="input-row">
+                                        <label for="footerText" class="form-label">Teks Footer Tambahan (opsional)</label>
+                                        <textarea class="form-control" id="footerText" rows="2" placeholder="Teks tambahan untuk footer"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1104,10 +1171,10 @@
         // Initial data
         const initialData = {
             menuItems: [
-                { id: 1, name: "Materi", description: "Pelajari materi pembelajaran", iconUrl: "" },
-                { id: 2, name: "Quiz", description: "Uji pemahaman Anda", iconUrl: "" },
-                { id: 3, name: "Game", description: "Belajar sambil bermain", iconUrl: "" },
-                { id: 4, name: "Lab Virtual", description: "Lakukan eksperimen virtual", iconUrl: "" }
+                { id: 1, name: "Materi", description: "Pelajari materi pembelajaran", iconUrl: "", detail: "", isStandard: true },
+                { id: 2, name: "Quiz", description: "Uji pemahaman Anda", iconUrl: "", detail: "", isStandard: true },
+                { id: 3, name: "Game", description: "Belajar sambil bermain", iconUrl: "", detail: "", isStandard: true },
+                { id: 4, name: "Lab Virtual", description: "Lakukan eksperimen virtual", iconUrl: "", detail: "", isStandard: true }
             ],
             materiItems: [],
             tujuanItems: [
@@ -1119,6 +1186,9 @@
                 { id: 2, name: "Kelas", type: "text", required: true }
             ]
         };
+
+        // Standard menus that don't need detail description
+        const standardMenus = ["Materi", "Quiz", "Game", "Lab Virtual"];
 
         // Menu to section mapping
         const menuSectionMap = {
@@ -1267,8 +1337,8 @@
                         <i class="bi bi-trash"></i> Hapus
                     </button>
                 </div>
-                <div class="row">
-                    <div class="col-12">
+                <div class="input-group-vertical">
+                    <div class="input-row">
                         <label class="form-label">Deskripsi Tujuan</label>
                         <textarea class="form-control tujuan-text" rows="3" placeholder="Tulis tujuan pembelajaran secara detail">${itemText}</textarea>
                     </div>
@@ -1306,11 +1376,33 @@
             const itemName = item ? item.name : '';
             const itemDesc = item ? item.description : '';
             const itemIcon = item ? item.iconUrl : '';
+            const itemDetail = item ? item.detail : '';
+            const isStandard = item ? standardMenus.includes(itemName) : false;
             const itemIndex = index || (container.querySelectorAll('.menu-item').length + 1);
             
             const itemElement = document.createElement('div');
             itemElement.className = 'cloneable-item menu-item';
             itemElement.setAttribute('data-id', itemId);
+            
+            // Build HTML based on whether it's a standard menu or custom menu
+            let detailSection = '';
+            if (!isStandard) {
+                detailSection = `
+                    <div class="menu-detail-container">
+                        <div class="menu-detail-header">
+                            <i class="bi bi-info-circle"></i>
+                            <span>Deskripsi Detail Menu Baru</span>
+                        </div>
+                        <div class="input-group-vertical">
+                            <div class="input-row">
+                                <label class="form-label">Deskripsi Detail</label>
+                                <textarea class="form-control menu-detail" rows="3" placeholder="Deskripsikan secara detail apa yang harus ada di menu ini, fitur-fitur yang diperlukan, dan bagaimana pengguna akan berinteraksi dengan menu ini">${itemDetail}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
             itemElement.innerHTML = `
                 <div class="item-header">
                     <div class="item-title">
@@ -1321,40 +1413,35 @@
                         <i class="bi bi-trash"></i> Hapus
                     </button>
                 </div>
-                <div class="row">
-                    <div class="col-md-5">
+                <div class="input-group-vertical">
+                    <div class="input-row">
                         <label class="form-label">Nama Menu</label>
-                        <input type="text" class="form-control menu-name" value="${itemName}" placeholder="Contoh: Materi, Quiz, Game">
+                        <input type="text" class="form-control menu-name" value="${itemName}" placeholder="Contoh: Materi, Quiz, Game, Video, Referensi, dll.">
                     </div>
-                    <div class="col-md-4">
+                    <div class="input-row">
                         <label class="form-label">Deskripsi Singkat</label>
-                        <input type="text" class="form-control menu-desc" value="${itemDesc}" placeholder="Deskripsi menu">
+                        <input type="text" class="form-control menu-desc" value="${itemDesc}" placeholder="Deskripsi singkat menu yang akan muncul di tooltip atau caption">
                     </div>
-                    <div class="col-md-3">
+                    <div class="input-row">
                         <label class="form-label">Icon/Thumbnail URL</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control menu-icon-url" value="${itemIcon}" placeholder="URL gambar">
-                            <button type="button" class="btn btn-outline-secondary preview-icon-btn">
-                                <i class="bi bi-eye"></i>
-                            </button>
+                        <div class="d-flex flex-column">
+                            <div class="input-group">
+                                <input type="text" class="form-control menu-icon-url" value="${itemIcon}" placeholder="URL gambar untuk icon/thumbnail">
+                                <button type="button" class="btn btn-outline-secondary preview-icon-btn">
+                                    <i class="bi bi-eye"></i> Preview
+                                </button>
+                            </div>
+                            <small class="text-muted mt-1">Contoh: https://example.com/icon.png</small>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-5">
-                        <small class="text-muted">Nama menu akan menentukan apakah section terkait muncul</small>
-                    </div>
-                    <div class="col-md-4">
-                        <small class="text-muted">Deskripsi akan muncul di tooltip atau caption</small>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="icon-preview-container mt-1">
-                            <img src="${itemIcon || 'https://via.placeholder.com/48x48?text=Icon'}" 
-                                 class="icon-preview" 
-                                 alt="Preview icon"
-                                 onerror="this.src='https://via.placeholder.com/48x48?text=Error'">
-                        </div>
-                    </div>
+                ${detailSection}
+                <div class="preview-container">
+                    <div class="preview-label">Preview Icon:</div>
+                    <img src="${itemIcon || 'https://via.placeholder.com/48x48?text=Icon'}" 
+                         class="icon-preview" 
+                         alt="Preview icon"
+                         onerror="this.src='https://via.placeholder.com/48x48?text=Error'">
                 </div>
             `;
             
@@ -1368,14 +1455,16 @@
             
             // Add event listener to preview button
             const previewBtn = itemElement.querySelector('.preview-icon-btn');
-            previewBtn.addEventListener('click', function() {
-                const urlInput = itemElement.querySelector('.menu-icon-url');
-                const previewImg = itemElement.querySelector('.icon-preview');
-                previewImg.src = urlInput.value || 'https://via.placeholder.com/48x48?text=Icon';
-            });
+            if (previewBtn) {
+                previewBtn.addEventListener('click', function() {
+                    const urlInput = itemElement.querySelector('.menu-icon-url');
+                    const previewImg = itemElement.querySelector('.icon-preview');
+                    previewImg.src = urlInput.value || 'https://via.placeholder.com/48x48?text=Icon';
+                });
+            }
             
             // Add event listeners to inputs
-            const inputs = itemElement.querySelectorAll('input');
+            const inputs = itemElement.querySelectorAll('input, textarea');
             inputs.forEach(input => {
                 input.addEventListener('input', function() {
                     // Update icon preview if icon URL changes
@@ -1387,6 +1476,45 @@
                     // Update conditional sections if menu name changes
                     if (input.classList.contains('menu-name')) {
                         updateConditionalSections();
+                        
+                        // Show/hide detail section based on menu name
+                        const menuName = input.value.trim();
+                        const detailContainer = itemElement.querySelector('.menu-detail-container');
+                        const isStandardMenu = standardMenus.includes(menuName);
+                        
+                        if (detailContainer) {
+                            if (isStandardMenu) {
+                                detailContainer.style.display = 'none';
+                            } else {
+                                detailContainer.style.display = 'block';
+                            }
+                        } else if (!isStandardMenu) {
+                            // Add detail section if it doesn't exist and menu is not standard
+                            const newDetailSection = `
+                                <div class="menu-detail-container">
+                                    <div class="menu-detail-header">
+                                        <i class="bi bi-info-circle"></i>
+                                        <span>Deskripsi Detail Menu Baru</span>
+                                    </div>
+                                    <div class="input-group-vertical">
+                                        <div class="input-row">
+                                            <label class="form-label">Deskripsi Detail</label>
+                                            <textarea class="form-control menu-detail" rows="3" placeholder="Deskripsikan secara detail apa yang harus ada di menu ini, fitur-fitur yang diperlukan, dan bagaimana pengguna akan berinteraksi dengan menu ini"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            // Insert before preview container
+                            const previewContainer = itemElement.querySelector('.preview-container');
+                            if (previewContainer) {
+                                previewContainer.insertAdjacentHTML('beforebegin', newDetailSection);
+                                
+                                // Add event listener to new textarea
+                                const newTextarea = itemElement.querySelector('.menu-detail');
+                                newTextarea.addEventListener('input', generatePrompt);
+                            }
+                        }
                     }
                     
                     generatePrompt();
@@ -1426,40 +1554,34 @@
                         <i class="bi bi-trash"></i> Hapus
                     </button>
                 </div>
-                <div class="row">
-                    <div class="col-md-5">
+                <div class="input-group-vertical">
+                    <div class="input-row">
                         <label class="form-label">Judul Materi</label>
-                        <input type="text" class="form-control materi-judul" value="${itemJudul}" placeholder="Judul materi">
+                        <input type="text" class="form-control materi-judul" value="${itemJudul}" placeholder="Judul materi pembelajaran">
                     </div>
-                    <div class="col-md-4">
+                    <div class="input-row">
                         <label class="form-label">URL Media (gambar/video/audio)</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control materi-media-url" value="${itemMediaUrl}" placeholder="URL gambar/video/audio">
-                            <button type="button" class="btn btn-outline-secondary preview-media-btn">
-                                <i class="bi bi-eye"></i>
-                            </button>
+                        <div class="d-flex flex-column">
+                            <div class="input-group">
+                                <input type="text" class="form-control materi-media-url" value="${itemMediaUrl}" placeholder="URL gambar, video, atau audio">
+                                <button type="button" class="btn btn-outline-secondary preview-media-btn">
+                                    <i class="bi bi-eye"></i> Preview
+                                </button>
+                            </div>
+                            <small class="text-muted mt-1">Contoh: https://example.com/image.jpg</small>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="input-row">
                         <label class="form-label">Konten Materi</label>
-                        <textarea class="form-control materi-konten" rows="3" placeholder="Isi/konten materi">${itemKonten}</textarea>
+                        <textarea class="form-control materi-konten" rows="4" placeholder="Tulis isi/konten materi pembelajaran secara detail">${itemKonten}</textarea>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-5">
-                        <small class="text-muted">Judul akan muncul sebagai heading materi</small>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media-preview-container mt-1">
-                            <img src="${itemMediaUrl || 'https://via.placeholder.com/120x80?text=Media'}" 
-                                 class="media-preview" 
-                                 alt="Preview media"
-                                 onerror="this.src='https://via.placeholder.com/120x80?text=Error'">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <small class="text-muted">Gunakan URL langsung, bukan iframe/embed</small>
-                    </div>
+                <div class="preview-container">
+                    <div class="preview-label">Preview Media:</div>
+                    <img src="${itemMediaUrl || 'https://via.placeholder.com/120x80?text=Media'}" 
+                         class="media-preview" 
+                         alt="Preview media"
+                         onerror="this.src='https://via.placeholder.com/120x80?text=Error'">
                 </div>
             `;
             
@@ -1525,34 +1647,28 @@
                         <i class="bi bi-trash"></i> Hapus
                     </button>
                 </div>
-                <div class="row">
-                    <div class="col-12">
+                <div class="input-group-vertical">
+                    <div class="input-row">
                         <label class="form-label">Pertanyaan</label>
-                        <input type="text" class="form-control quiz-pertanyaan" value="${itemPertanyaan}" placeholder="Masukkan pertanyaan">
+                        <input type="text" class="form-control quiz-pertanyaan" value="${itemPertanyaan}" placeholder="Masukkan pertanyaan quiz">
                     </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
+                    <div class="input-row">
                         <label class="form-label">Opsi A</label>
                         <input type="text" class="form-control quiz-option" data-index="0" value="${itemOptions[0]}" placeholder="Opsi A">
                     </div>
-                    <div class="col-md-6">
+                    <div class="input-row">
                         <label class="form-label">Opsi B</label>
                         <input type="text" class="form-control quiz-option" data-index="1" value="${itemOptions[1]}" placeholder="Opsi B">
                     </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
+                    <div class="input-row">
                         <label class="form-label">Opsi C</label>
                         <input type="text" class="form-control quiz-option" data-index="2" value="${itemOptions[2]}" placeholder="Opsi C">
                     </div>
-                    <div class="col-md-6">
+                    <div class="input-row">
                         <label class="form-label">Opsi D</label>
                         <input type="text" class="form-control quiz-option" data-index="3" value="${itemOptions[3]}" placeholder="Opsi D">
                     </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
+                    <div class="input-row">
                         <label class="form-label">Jawaban Benar</label>
                         <select class="form-select quiz-jawaban">
                             <option value="0" ${itemJawaban == 0 ? 'selected' : ''}>A</option>
@@ -1605,12 +1721,12 @@
                         <i class="bi bi-trash"></i> Hapus
                     </button>
                 </div>
-                <div class="row">
-                    <div class="col-md-5">
+                <div class="input-group-vertical">
+                    <div class="input-row">
                         <label class="form-label">Nama Field</label>
-                        <input type="text" class="form-control login-field-name" value="${fieldName}" placeholder="Contoh: Nama, Kelas">
+                        <input type="text" class="form-control login-field-name" value="${fieldName}" placeholder="Contoh: Nama, Kelas, Email, Password">
                     </div>
-                    <div class="col-md-3">
+                    <div class="input-row">
                         <label class="form-label">Tipe Input</label>
                         <select class="form-select login-field-type">
                             <option value="text" ${fieldType === 'text' ? 'selected' : ''}>Text</option>
@@ -1619,8 +1735,8 @@
                             <option value="number" ${fieldType === 'number' ? 'selected' : ''}>Number</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-check mt-4">
+                    <div class="input-row">
+                        <div class="form-check">
                             <input class="form-check-input login-field-required" type="checkbox" ${fieldRequired ? 'checked' : ''}>
                             <label class="form-check-label">
                                 Wajib diisi
@@ -1991,7 +2107,7 @@
             window.addEventListener('scroll', updateStepIndicator);
             
             // Add event listeners to all form controls
-            const formControls = document.querySelectorAll('select, input:not(.menu-name,.menu-desc,.menu-icon-url,.materi-judul,.materi-konten,.materi-media-url,.tujuan-text,.quiz-pertanyaan,.quiz-option,.login-field-name), textarea:not(.materi-konten,.tujuan-text), input[type="checkbox"]:not(.login-field-required)');
+            const formControls = document.querySelectorAll('select, input:not(.menu-name,.menu-desc,.menu-icon-url,.materi-judul,.materi-konten,.materi-media-url,.tujuan-text,.quiz-pertanyaan,.quiz-option,.login-field-name,.menu-detail), textarea:not(.materi-konten,.tujuan-text,.menu-detail), input[type="checkbox"]:not(.login-field-required)');
             formControls.forEach(control => {
                 control.addEventListener('change', generatePrompt);
                 control.addEventListener('input', generatePrompt);
@@ -2050,8 +2166,11 @@
                 const name = element.querySelector('.menu-name').value;
                 const desc = element.querySelector('.menu-desc').value;
                 const iconUrl = element.querySelector('.menu-icon-url').value;
+                const detailElement = element.querySelector('.menu-detail');
+                const detail = detailElement ? detailElement.value : '';
+                
                 if (name.trim() !== '') {
-                    menuItems.push({ name, desc, iconUrl });
+                    menuItems.push({ name, desc, iconUrl, detail });
                 }
             });
             
@@ -2213,6 +2332,10 @@
                     prompt += `  ${index + 1}. ${item.name}: ${item.desc}\n`;
                     if (item.iconUrl.trim() !== '') {
                         prompt += `     Icon URL: ${item.iconUrl}\n`;
+                    }
+                    // Add detail description for custom menus
+                    if (item.detail && item.detail.trim() !== '' && !standardMenus.includes(item.name)) {
+                        prompt += `     Detail Menu: ${item.detail}\n`;
                     }
                 });
             } else {
