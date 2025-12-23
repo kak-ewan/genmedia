@@ -3,165 +3,550 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Prompt Media Pembelajaran untuk Canva Code</title>
+    <title>Generator Prompt Media Pembelajaran</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
         :root {
             --primary-color: #4361ee;
             --secondary-color: #3f37c9;
             --accent-color: #4cc9f0;
+            --danger-color: #ef476f;
+            --light-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --border-color: #e2e8f0;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7ff 0%, #eef2ff 100%);
+            color: var(--text-primary);
             padding-top: 20px;
             padding-bottom: 50px;
+            min-height: 100vh;
         }
         
         .header-section {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.2;
         }
         
         .section-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
         
         .conditional-section {
-            border-left-color: #6c757d;
-            opacity: 0.7;
-            transition: opacity 0.3s;
+            opacity: 0.6;
+            transition: all 0.3s ease;
         }
         
         .conditional-section.active {
             opacity: 1;
-            border-left-color: var(--primary-color);
         }
         
         .section-title {
             color: var(--secondary-color);
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #eee;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eef2ff;
+            font-weight: 700;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            font-size: 1.2rem;
         }
         
         .prompt-output {
-            background-color: #f8f9fa;
-            border: 2px dashed #dee2e6;
-            border-radius: 10px;
+            background-color: #1a202c;
+            color: #e2e8f0;
+            border: none;
+            border-radius: 12px;
             padding: 1.5rem;
-            font-family: 'Courier New', monospace;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
             white-space: pre-wrap;
             word-wrap: break-word;
             max-height: 500px;
             overflow-y: auto;
             margin-top: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
         .btn-custom {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 500;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.2);
         }
         
         .btn-custom:hover {
-            background-color: var(--secondary-color);
+            background: linear-gradient(135deg, var(--secondary-color), #2d26a5);
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-danger-custom {
+            background: linear-gradient(135deg, var(--danger-color), #d42954);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(239, 71, 111, 0.2);
+        }
+        
+        .btn-danger-custom:hover {
+            background: linear-gradient(135deg, #d42954, #b81e45);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 71, 111, 0.3);
+        }
+        
+        .btn-outline-custom {
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-custom:hover {
+            background-color: var(--primary-color);
+            color: white;
         }
         
         .counter-badge {
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), #3bb5e8);
             color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            margin-left: 5px;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
         
-        .form-control:focus {
+        .form-control, .form-select {
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+            box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
         }
         
         .cloneable-item {
-            margin-bottom: 15px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            border: 1px solid #e9ecef;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .cloneable-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.1);
         }
         
         .icon-preview {
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
             background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
         .media-preview {
-            max-width: 100px;
-            max-height: 60px;
+            max-width: 120px;
+            max-height: 80px;
             object-fit: cover;
-            border-radius: 5px;
-            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
             background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         
         .login-field-item {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f1f3f9;
-            border-radius: 5px;
-            border-left: 3px solid #6c757d;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
         
         .canva-sheet-option {
-            background-color: #e8f4fd;
-            border-left: 4px solid #4cc9f0;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
+            background: linear-gradient(135deg, #e8f4fd 0%, #d4eafc 100%);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .responsive-option {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-left: 4px solid #4361ee;
+        }
+        
+        .quiz-option-container {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            border: 2px dashed var(--border-color);
+        }
+        
+        .option-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(67, 97, 238, 0.2);
+        }
+        
+        .nav-tabs {
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .nav-tabs .nav-link {
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px 8px 0 0;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            background-color: white;
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .tab-content {
+            background-color: white;
+            border-radius: 0 0 12px 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .sticky-sidebar {
+            position: sticky;
+            top: 20px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .form-range::-webkit-slider-thumb {
+            background-color: var(--primary-color);
+        }
+        
+        .form-range::-moz-range-thumb {
+            background-color: var(--primary-color);
+        }
+        
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active .step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .step-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--border-color);
+            z-index: 0;
         }
         
         @media (max-width: 768px) {
             .header-section {
-                padding: 1.5rem;
+                padding: 2rem 1rem;
             }
             
             .section-card {
-                padding: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .step-indicator {
+                display: none;
             }
         }
         
-        .responsive-option {
+        .accordion-button:not(.collapsed) {
             background-color: #f0f7ff;
-            border-radius: 8px;
-            padding: 15px;
+            color: var(--primary-color);
+            font-weight: 600;
+            box-shadow: none;
+        }
+        
+        .accordion-button:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+        }
+        
+        .floating-action {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .floating-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .delete-btn-container {
+            display: flex;
+            justify-content: flex-end;
             margin-top: 10px;
-            border-left: 4px solid #4361ee;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .item-title {
+            font-weight: 600;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .item-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .remove-item-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            border: 2px dashed var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .empty-state-icon {
+            font-size: 3rem;
+            color: var(--border-color);
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .confirmation-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .confirmation-content {
+            background-color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .confirmation-modal.show .confirmation-content {
+            transform: translateY(0);
+        }
+        
+        .confirmation-title {
+            color: var(--danger-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .confirmation-message {
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .confirmation-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
         }
     </style>
 </head>
@@ -169,358 +554,511 @@
     <div class="container">
         <!-- Header -->
         <div class="header-section text-center">
-            <h1>Generator Prompt Media Pembelajaran untuk Canva Code</h1>
-            <p class="lead">Buat prompt yang sesuai untuk membuat media pembelajaran dengan AI Canva Code</p>
-            <p class="mb-0">Isi formulir di bawah ini untuk menghasilkan prompt yang spesifik</p>
+            <h1 class="display-5 fw-bold mb-3">📝 Generator Prompt Media Pembelajaran</h1>
+            <p class="lead mb-4">Buat prompt spesifik untuk AI Canva Code dengan mudah</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <span class="option-pill"><i class="bi bi-check-circle"></i> Responsif Lengkap</span>
+                <span class="option-pill"><i class="bi bi-check-circle"></i> Integrasi Canva Sheet</span>
+                <span class="option-pill"><i class="bi bi-check-circle"></i> UI Modern</span>
+            </div>
+        </div>
+        
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step-line"></div>
+            <div class="step active">
+                <div class="step-number">1</div>
+                <small class="text-muted">Dasar</small>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <small class="text-muted">Konten</small>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <small class="text-muted">Fitur</small>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <small class="text-muted">Hasil</small>
+            </div>
         </div>
         
         <!-- Input Form -->
         <div class="row">
             <div class="col-lg-8">
-                <!-- Section A: Loading Screen -->
-                <div class="section-card">
-                    <h3 class="section-title">A. Loading Screen</h3>
-                    <div class="mb-3">
-                        <label for="loadingScreenType" class="form-label">Jenis Loading Screen</label>
-                        <select class="form-select" id="loadingScreenType">
-                            <option value="simple">Sederhana (spinner)</option>
-                            <option value="animated">Animasi Lengkap</option>
-                            <option value="progress">Dengan Progress Bar</option>
-                            <option value="minimal">Minimalis</option>
-                            <option value="custom">Kustom (deskripsikan di bawah)</option>
-                        </select>
-                    </div>
-                    <div class="mb-3" id="customLoadingContainer" style="display: none;">
-                        <label for="customLoadingDesc" class="form-label">Deskripsi Loading Screen Kustom</label>
-                        <textarea class="form-control" id="customLoadingDesc" rows="2" placeholder="Contoh: Loading screen dengan animasi buku terbuka dan teks 'Memuat pengetahuan...'"></textarea>
-                    </div>
-                </div>
-                
-                <!-- Section B: Header & Login -->
-                <div class="section-card">
-                    <h3 class="section-title">B. Header & Login</h3>
-                    <div class="mb-3">
-                        <label for="judul" class="form-label">Judul Media Pembelajaran</label>
-                        <input type="text" class="form-control" id="judul" value="Media Pembelajaran Interaktif">
-                    </div>
-                    <div class="mb-3">
-                        <label for="subJudul" class="form-label">Sub Judul</label>
-                        <input type="text" class="form-control" id="subJudul" value="Belajar dengan cara yang menyenangkan dan efektif">
-                    </div>
+                <!-- Accordion untuk semua section -->
+                <div class="accordion" id="formAccordion">
                     
-                    <div class="mb-3">
-                        <label class="form-label">Sistem Login</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="loginOption" id="loginNo" value="no" checked>
-                            <label class="form-check-label" for="loginNo">
-                                Tanpa Login
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="loginOption" id="loginYes" value="yes">
-                            <label class="form-check-label" for="loginYes">
-                                Dengan Login
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div id="loginFieldsContainer" style="display: none;">
-                        <div class="mb-3">
-                            <label class="form-label">Field Login yang Diperlukan</label>
-                            <div id="loginFields">
-                                <!-- Login fields will be added here dynamically -->
-                            </div>
-                            <button type="button" class="btn btn-sm btn-outline-primary mt-2" id="addLoginField">
-                                + Tambah Field Login
+                    <!-- Section A: Loading Screen -->
+                    <div class="accordion-item section-card">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseA">
+                                <i class="bi bi-hourglass-split me-2"></i> A. Loading Screen
                             </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Section C: Tujuan Pembelajaran -->
-                <div class="section-card">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="section-title mb-0">C. Tujuan Pembelajaran
-                            <span class="counter-badge" id="tujuanCounter">1</span>
-                        </h3>
-                        <div>
-                            <button type="button" class="btn btn-sm btn-custom" id="addTujuanBtn">
-                                + Tambah Tujuan
-                            </button>
-                        </div>
-                    </div>
-                    <p class="text-muted">Tentukan tujuan pembelajaran yang ingin dicapai</p>
-                    
-                    <div id="tujuanItemsContainer">
-                        <!-- Tujuan items will be added here dynamically -->
-                    </div>
-                </div>
-                
-                <!-- Section D: Menu -->
-                <div class="section-card">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="section-title mb-0">D. Menu
-                            <span class="counter-badge" id="menuCounter">4</span>
-                        </h3>
-                        <div>
-                            <button type="button" class="btn btn-sm btn-custom" id="addMenuBtn">
-                                + Tambah Menu
-                            </button>
-                        </div>
-                    </div>
-                    <p class="text-muted">Tentukan menu yang akan ada di media pembelajaran Anda</p>
-                    
-                    <div id="menuItemsContainer">
-                        <!-- Menu items will be added here dynamically -->
-                    </div>
-                </div>
-                
-                <!-- Section E: Materi (Conditional) -->
-                <div class="section-card conditional-section" id="materiSection">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="section-title mb-0">E. Materi
-                            <span class="counter-badge" id="materiCounter">0</span>
-                        </h3>
-                        <div>
-                            <button type="button" class="btn btn-sm btn-custom" id="addMateriBtn">
-                                + Tambah Materi
-                            </button>
-                        </div>
-                    </div>
-                    <p class="text-muted">Tentukan materi pembelajaran yang akan disajikan</p>
-                    
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="trackLearningTime">
-                            <label class="form-check-label" for="trackLearningTime">
-                                Aktifkan Pelacakan Waktu Belajar
-                            </label>
-                        </div>
-                        <small class="text-muted">Jika diaktifkan, akan menampilkan waktu berjalan dan menyimpan data ke Canva Sheet</small>
-                    </div>
-                    
-                    <div id="materiItemsContainer">
-                        <!-- Materi items will be added here dynamically -->
-                    </div>
-                </div>
-                
-                <!-- Section F: Quiz (Conditional) -->
-                <div class="section-card conditional-section" id="quizSection">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="section-title mb-0">F. Quiz/Evaluasi
-                            <span class="counter-badge" id="quizCounter">0</span>
-                        </h3>
-                        <div>
-                            <button type="button" class="btn btn-sm btn-custom" id="addQuizBtn">
-                                + Tambah Soal
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="canva-sheet-option">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="saveQuizToCanva" checked>
-                            <label class="form-check-label" for="saveQuizToCanva">
-                                Simpan Hasil Quiz ke Canva Sheet
-                            </label>
-                        </div>
-                        <small class="text-muted">Data hasil quiz akan disimpan secara otomatis ke Canva Sheet</small>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="quizType" class="form-label">Jenis Quiz</label>
-                        <select class="form-select" id="quizType">
-                            <option value="pilihan_ganda">Pilihan Ganda</option>
-                            <option value="benar_salah">Benar/Salah</option>
-                            <option value="isian_singkat">Isian Singkat</option>
-                            <option value="matching">Mencocokkan</option>
-                            <option value="campuran">Campuran</option>
-                        </select>
-                    </div>
-                    
-                    <div id="quizItemsContainer">
-                        <!-- Quiz items will be added here dynamically -->
-                    </div>
-                </div>
-                
-                <!-- Section G: Game (Conditional) -->
-                <div class="section-card conditional-section" id="gameSection">
-                    <h3 class="section-title">G. Game Edukatif</h3>
-                    
-                    <div class="canva-sheet-option">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="saveGameToCanva" checked>
-                            <label class="form-check-label" for="saveGameToCanva">
-                                Simpan Skor Game ke Canva Sheet
-                            </label>
-                        </div>
-                        <small class="text-muted">Data skor game akan disimpan secara otomatis ke Canva Sheet</small>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="gameType" class="form-label">Jenis Game</label>
-                        <select class="form-select" id="gameType">
-                            <option value="memory">Game Memory (Mencocokkan Kartu)</option>
-                            <option value="quiz_game">Game Quiz dengan Timer</option>
-                            <option value="drag_drop">Drag and Drop</option>
-                            <option value="puzzle">Puzzle</option>
-                            <option value="simulasi">Simulasi Interaktif</option>
-                            <option value="typing">Game Mengetik Cepat</option>
-                            <option value="maze">Labirin</option>
-                            <option value="trivia">Trivia / Kuis Game</option>
-                            <option value="custom">Lainnya (deskripsikan)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="mb-3" id="customGameContainer" style="display: none;">
-                        <label for="customGameDesc" class="form-label">Deskripsi Game Lainnya</label>
-                        <textarea class="form-control" id="customGameDesc" rows="2" placeholder="Deskripsikan jenis game yang Anda inginkan"></textarea>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="gameTheme" class="form-label">Tema Game</label>
-                        <input type="text" class="form-control" id="gameTheme" placeholder="Contoh: Tema alam, ruang angkasa, sejarah, dll.">
-                    </div>
-                </div>
-                
-                <!-- Section H: Lab Virtual (Conditional) -->
-                <div class="section-card conditional-section" id="labSection">
-                    <h3 class="section-title">H. Lab Virtual / Simulasi</h3>
-                    <div class="mb-3">
-                        <label for="labDescription" class="form-label">Deskripsi Lab Virtual / Simulasi</label>
-                        <textarea class="form-control" id="labDescription" rows="3" placeholder="Deskripsikan lab virtual atau simulasi yang Anda inginkan. Contoh: Simulasi rangkaian listrik sederhana dengan komponen yang dapat diseret dan dihubungkan, atau simulasi percobaan kimia dengan tabung reaksi dan bahan kimia."></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="labFeatures" class="form-label">Fitur yang Diinginkan (opsional)</label>
-                        <textarea class="form-control" id="labFeatures" rows="2" placeholder="Contoh: Drag and drop alat, simulasi reaksi, hasil eksperimen, reset, dll."></textarea>
-                    </div>
-                </div>
-                
-                <!-- Additional Options -->
-                <div class="section-card">
-                    <h3 class="section-title">I. Opsi Tambahan</h3>
-                    
-                    <div class="responsive-option">
-                        <h5>Responsivitas</h5>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="responsiveCheck" checked>
-                            <label class="form-check-label" for="responsiveCheck">
-                                Responsif untuk semua perangkat
-                            </label>
-                        </div>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="responsiveVertical" checked>
-                            <label class="form-check-label" for="responsiveVertical">
-                                Responsif Vertikal (portrait mode)
-                            </label>
-                        </div>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="responsiveHorizontal" checked>
-                            <label class="form-check-label" for="responsiveHorizontal">
-                                Responsif Horizontal (landscape mode)
-                            </label>
-                        </div>
-                        <small class="text-muted">Media pembelajaran harus dapat menyesuaikan tampilan baik dalam orientasi vertikal maupun horizontal</small>
-                    </div>
-                    
-                    <div class="mb-3 mt-3">
-                        <label class="form-label">Fitur Tambahan Lainnya</label>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="darkModeCheck">
-                            <label class="form-check-label" for="darkModeCheck">
-                                Mode Gelap (dark mode)
-                            </label>
-                        </div>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="progressTrackingCheck">
-                            <label class="form-check-label" for="progressTrackingCheck">
-                                Pelacakan Progress Belajar
-                            </label>
-                        </div>
-                        <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" id="backsoundCheck">
-                            <label class="form-check-label" for="backsoundCheck">
-                                Backsound / Musik Latar
-                            </label>
-                        </div>
-                        <div id="backsoundOptions" style="display: none; margin-left: 20px;">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" id="backsoundControlCheck" checked>
-                                <label class="form-check-label" for="backsoundControlCheck">
-                                    Tombol kontrol backsound (play/pause/volume)
-                                </label>
+                        </h2>
+                        <div id="collapseA" class="accordion-collapse collapse show" data-bs-parent="#formAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-3">
+                                    <label for="loadingScreenType" class="form-label">Jenis Loading Screen</label>
+                                    <select class="form-select" id="loadingScreenType">
+                                        <option value="simple">Sederhana (spinner)</option>
+                                        <option value="animated">Animasi Lengkap</option>
+                                        <option value="progress">Dengan Progress Bar</option>
+                                        <option value="minimal">Minimalis</option>
+                                        <option value="custom">Kustom (deskripsikan di bawah)</option>
+                                    </select>
                                 </div>
-                            <div class="mb-2">
-                                <label for="backsoundUrl" class="form-label">URL Backsound (opsional)</label>
-                                <input type="text" class="form-control" id="backsoundUrl" placeholder="https://example.com/music.mp3">
-                                <small class="text-muted">Biarkan kosong untuk menggunakan backsound default</small>
+                                <div class="mb-3" id="customLoadingContainer" style="display: none;">
+                                    <label for="customLoadingDesc" class="form-label">Deskripsi Loading Screen Kustom</label>
+                                    <textarea class="form-control" id="customLoadingDesc" rows="2" placeholder="Contoh: Loading screen dengan animasi buku terbuka dan teks 'Memuat pengetahuan...'"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="mb-3">
-                        <label for="colorScheme" class="form-label">Skema Warna</label>
-                        <select class="form-select" id="colorScheme">
-                            <option value="blue">Biru (default)</option>
-                            <option value="green">Hijau</option>
-                            <option value="purple">Ungu</option>
-                            <option value="red">Merah</option>
-                            <option value="orange">Oranye</option>
-                            <option value="custom">Kustom (deskripsikan)</option>
-                        </select>
+                    <!-- Section B: Header & Login -->
+                    <div class="accordion-item section-card">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseB">
+                                <i class="bi bi-person-circle me-2"></i> B. Header & Login
+                            </button>
+                        </h2>
+                        <div id="collapseB" class="accordion-collapse collapse" data-bs-parent="#formAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-3">
+                                    <label for="judul" class="form-label">Judul Media Pembelajaran</label>
+                                    <input type="text" class="form-control" id="judul" value="Media Pembelajaran Interaktif">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subJudul" class="form-label">Sub Judul</label>
+                                    <input type="text" class="form-control" id="subJudul" value="Belajar dengan cara yang menyenangkan dan efektif">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Sistem Login</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="loginOption" id="loginNo" value="no" checked>
+                                        <label class="form-check-label" for="loginNo">
+                                            Tanpa Login
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="loginOption" id="loginYes" value="yes">
+                                        <label class="form-check-label" for="loginYes">
+                                            Dengan Login
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div id="loginFieldsContainer" style="display: none;">
+                                    <div class="mb-3">
+                                        <label class="form-label">Field Login yang Diperlukan</label>
+                                        <div id="loginFields">
+                                            <!-- Login fields will be added here dynamically -->
+                                        </div>
+                                        <button type="button" class="btn btn-custom mt-2" id="addLoginField">
+                                            <i class="bi bi-plus-circle me-1"></i> Tambah Field Login
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3" id="customColorContainer" style="display: none;">
-                        <label for="customColorDesc" class="form-label">Deskripsi Skema Warna Kustom</label>
-                        <textarea class="form-control" id="customColorDesc" rows="2" placeholder="Contoh: Warna utama hijau muda (#a8e6cf), aksen merah muda (#ffaaa5)"></textarea>
+                    
+                    <!-- Section C: Tujuan Pembelajaran -->
+                    <div class="accordion-item section-card">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseC">
+                                <i class="bi bi-bullseye me-2"></i> C. Tujuan Pembelajaran
+                                <span class="counter-badge ms-2" id="tujuanCounter">1</span>
+                            </button>
+                        </h2>
+                        <div id="collapseC" class="accordion-collapse collapse" data-bs-parent="#formAccordion">
+                            <div class="accordion-body">
+                                <p class="text-muted mb-3">Tentukan tujuan pembelajaran yang ingin dicapai</p>
+                                
+                                <div id="tujuanItemsContainer">
+                                    <!-- Tujuan items will be added here dynamically -->
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-3">
+                                    <button type="button" class="btn btn-custom" id="addTujuanBtn">
+                                        <i class="bi bi-plus-circle me-1"></i> Tambah Tujuan
+                                    </button>
+                                    <button type="button" class="btn btn-danger-custom" id="removeAllTujuanBtn">
+                                        <i class="bi bi-trash me-1"></i> Hapus Semua
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Footer Section -->
-                <div class="section-card">
-                    <h3 class="section-title">J. Footer & Kredit</h3>
-                    <div class="mb-3">
-                        <label for="guruName" class="form-label">Nama Guru/Pembuat</label>
-                        <input type="text" class="form-control" id="guruName" value="Guru Contoh">
+                    
+                    <!-- Section D: Menu -->
+                    <div class="accordion-item section-card">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseD">
+                                <i class="bi bi-list me-2"></i> D. Menu
+                                <span class="counter-badge ms-2" id="menuCounter">4</span>
+                            </button>
+                        </h2>
+                        <div id="collapseD" class="accordion-collapse collapse" data-bs-parent="#formAccordion">
+                            <div class="accordion-body">
+                                <p class="text-muted mb-3">Tentukan menu yang akan ada di media pembelajaran Anda</p>
+                                
+                                <div id="menuItemsContainer">
+                                    <!-- Menu items will be added here dynamically -->
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-3">
+                                    <button type="button" class="btn btn-custom" id="addMenuBtn">
+                                        <i class="bi bi-plus-circle me-1"></i> Tambah Menu
+                                    </button>
+                                    <button type="button" class="btn btn-danger-custom" id="removeAllMenuBtn">
+                                        <i class="bi bi-trash me-1"></i> Hapus Semua
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="sekolahName" class="form-label">Nama Sekolah/Institusi</label>
-                        <input type="text" class="form-control" id="sekolahName" value="Sekolah Menengah Atas Contoh">
+                    
+                    <!-- Section E: Materi (Conditional) -->
+                    <div class="accordion-item section-card conditional-section" id="materiSection">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseE">
+                                <i class="bi bi-journal-text me-2"></i> E. Materi
+                                <span class="counter-badge ms-2" id="materiCounter">0</span>
+                            </button>
+                        </h2>
+                        <div id="collapseE" class="accordion-collapse collapse" data-bs-parent="#formAccordion">
+                            <div class="accordion-body">
+                                <p class="text-muted mb-3">Tentukan materi pembelajaran yang akan disajikan</p>
+                                
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="trackLearningTime">
+                                        <label class="form-check-label" for="trackLearningTime">
+                                            Aktifkan Pelacakan Waktu Belajar
+                                        </label>
+                                    </div>
+                                    <small class="text-muted">Jika diaktifkan, akan menampilkan waktu berjalan dan menyimpan data ke Canva Sheet</small>
+                                </div>
+                                
+                                <div id="materiItemsContainer">
+                                    <!-- Materi items will be added here dynamically -->
+                                </div>
+                                
+                                <div class="d-flex justify-content-between mt-3">
+                                    <button type="button" class="btn btn-custom" id="addMateriBtn">
+                                        <i class="bi bi-plus-circle me-1"></i> Tambah Materi
+                                    </button>
+                                    <button type="button" class="btn btn-danger-custom" id="removeAllMateriBtn">
+                                        <i class="bi bi-trash me-1"></i> Hapus Semua
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="footerText" class="form-label">Teks Footer Tambahan (opsional)</label>
-                        <textarea class="form-control" id="footerText" rows="2" placeholder="Teks tambahan untuk footer"></textarea>
+                    
+                    <!-- Section F: Quiz (Conditional) -->
+                    <div class="accordion-item section-card conditional-section" id="quizSection">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseF">
+                                <i class="bi bi-question-circle me-2"></i> F. Quiz/Evaluasi
+                                <span class="counter-badge ms-2" id="quizCounter">0</span>
+                            </button>
+                        </h2>
+                        <div id="collapseF" class="accordion-collapse collapse" data-bs-parent="#formAccordion">
+                            <div class="accordion-body">
+                                <div class="canva-sheet-option">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="saveQuizToCanva" checked>
+                                        <label class="form-check-label" for="saveQuizToCanva">
+                                            Simpan Hasil Quiz ke Canva Sheet
+                                        </label>
+                                    </div>
+                                    <small class="text-muted">Data hasil quiz akan disimpan secara otomatis ke Canva Sheet</small>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="quizType" class="form-label">Jenis Quiz</label>
+                                    <select class="form-select" id="quizType">
+                                        <option value="pilihan_ganda">Pilihan Ganda</option>
+                                        <option value="benar_salah">Benar/Salah</option>
+                                        <option value="isian_singkat">Isian Singkat</option>
+                                        <option value="matching">Mencocokkan</option>
+                                        <option value="campuran">Campuran</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="quiz-option-container">
+                                    <div class="mb-3">
+                                        <label class="form-label">Sumber Soal Quiz</label>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" name="quizSource" id="quizAuto" value="auto" checked>
+                                            <label class="form-check-label" for="quizAuto">
+                                                Buat Otomatis oleh Canva Code
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="quizSource" id="quizManual" value="manual">
+                                            <label class="form-check-label" for="quizManual">
+                                                Tulis Manual
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="quizCount" class="form-label">Jumlah Soal</label>
+                                        <input type="range" class="form-range" id="quizCount" min="1" max="20" value="5">
+                                        <div class="d-flex justify-content-between">
+                                            <small class="text-muted">1 soal</small>
+                                            <small class="fw-bold text-primary" id="quizCountValue">5 soal</small>
+                                            <small class="text-muted">20 soal</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div id="quizManualContainer" style="display: none;">
+                                        <div class="mb-3">
+                                            <label class="form-label">Soal Quiz Manual</label>
+                                            <div id="quizItemsContainer">
+                                                <!-- Quiz items will be added here dynamically -->
+                                            </div>
+                                            <div class="d-flex justify-content-between mt-3">
+                                                <button type="button" class="btn btn-custom" id="addQuizBtn">
+                                                    <i class="bi bi-plus-circle me-1"></i> Tambah Soal
+                                                </button>
+                                                <button type="button" class="btn btn-danger-custom" id="removeAllQuizBtn">
+                                                    <i class="bi bi-trash me-1"></i> Hapus Semua
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Section G: Game (Conditional) -->
+                    <div class="accordion-item section-card conditional-section" id="gameSection">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseG">
+                                <i class="bi bi-joystick me-2"></i> G. Game Edukatif
+                            </button>
+                        </h2>
+                        <div id="collapseG" class="accordion-collapse collapse" data-bs-parent="#formAccordion">
+                            <div class="accordion-body">
+                                <div class="canva-sheet-option">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="saveGameToCanva" checked>
+                                        <label class="form-check-label" for="saveGameToCanva">
+                                            Simpan Skor Game ke Canva Sheet
+                                        </label>
+                                    </div>
+                                    <small class="text-muted">Data skor game akan disimpan secara otomatis ke Canva Sheet</small>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="gameType" class="form-label">Jenis Game</label>
+                                    <select class="form-select" id="gameType">
+                                        <option value="memory">Game Memory (Mencocokkan Kartu)</option>
+                                        <option value="quiz_game">Game Quiz dengan Timer</option>
+                                        <option value="drag_drop">Drag and Drop</option>
+                                        <option value="puzzle">Puzzle</option>
+                                        <option value="simulasi">Simulasi Interaktif</option>
+                                        <option value="typing">Game Mengetik Cepat</option>
+                                        <option value="maze">Labirin</option>
+                                        <option value="trivia">Trivia / Kuis Game</option>
+                                        <option value="custom">Lainnya (deskripsikan)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3" id="customGameContainer" style="display: none;">
+                                    <label for="customGameDesc" class="form-label">Deskripsi Game Lainnya</label>
+                                    <textarea class="form-control" id="customGameDesc" rows="2" placeholder="Deskripsikan jenis game yang Anda inginkan"></textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="gameTheme" class="form-label">Tema Game</label>
+                                    <input type="text" class="form-control" id="gameTheme" placeholder="Contoh: Tema alam, ruang angkasa, sejarah, dll.">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Section H: Lab Virtual (Conditional) -->
+                    <div class="accordion-item section-card conditional-section" id="labSection">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseH">
+                                <i class="bi bi-eyeglasses me-2"></i> H. Lab Virtual / Simulasi
+                            </button>
+                        </h2>
+                        <div id="collapseH" class="accordion-collapse collapse" data-bs-parent="#formAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-3">
+                                    <label for="labDescription" class="form-label">Deskripsi Lab Virtual / Simulasi</label>
+                                    <textarea class="form-control" id="labDescription" rows="3" placeholder="Deskripsikan lab virtual atau simulasi yang Anda inginkan. Contoh: Simulasi rangkaian listrik sederhana dengan komponen yang dapat diseret dan dihubungkan, atau simulasi percobaan kimia dengan tabung reaksi dan bahan kimia."></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="labFeatures" class="form-label">Fitur yang Diinginkan (opsional)</label>
+                                    <textarea class="form-control" id="labFeatures" rows="2" placeholder="Contoh: Drag and drop alat, simulasi reaksi, hasil eksperimen, reset, dll."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Section I: Opsi Tambahan -->
+                    <div class="accordion-item section-card">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseI">
+                                <i class="bi bi-gear me-2"></i> I. Opsi Tambahan
+                            </button>
+                        </h2>
+                        <div id="collapseI" class="accordion-collapse collapse" data-bs-parent="#formAccordion">
+                            <div class="accordion-body">
+                                <div class="responsive-option">
+                                    <h5 class="mb-3"><i class="bi bi-phone me-2"></i> Responsivitas</h5>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="responsiveCheck" checked>
+                                        <label class="form-check-label" for="responsiveCheck">
+                                            Responsif untuk semua perangkat
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="responsiveVertical" checked>
+                                        <label class="form-check-label" for="responsiveVertical">
+                                            Responsif Vertikal (portrait mode)
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="responsiveHorizontal" checked>
+                                        <label class="form-check-label" for="responsiveHorizontal">
+                                            Responsif Horizontal (landscape mode)
+                                        </label>
+                                    </div>
+                                    <small class="text-muted">Media pembelajaran harus dapat menyesuaikan tampilan baik dalam orientasi vertikal maupun horizontal</small>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <h5 class="mb-3"><i class="bi bi-magic me-2"></i> Fitur Tambahan Lainnya</h5>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="darkModeCheck">
+                                        <label class="form-check-label" for="darkModeCheck">
+                                            Mode Gelap (dark mode)
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="progressTrackingCheck">
+                                        <label class="form-check-label" for="progressTrackingCheck">
+                                            Pelacakan Progress Belajar
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="backsoundCheck">
+                                        <label class="form-check-label" for="backsoundCheck">
+                                            Backsound / Musik Latar
+                                        </label>
+                                    </div>
+                                    <div id="backsoundOptions" style="display: none; margin-left: 20px;">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="backsoundControlCheck" checked>
+                                            <label class="form-check-label" for="backsoundControlCheck">
+                                                Tombol kontrol backsound (play/pause/volume)
+                                            </label>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="backsoundUrl" class="form-label">URL Backsound (opsional)</label>
+                                            <input type="text" class="form-control" id="backsoundUrl" placeholder="https://example.com/music.mp3">
+                                            <small class="text-muted">Biarkan kosong untuk menggunakan backsound default</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <h5 class="mb-3"><i class="bi bi-palette me-2"></i> Skema Warna</h5>
+                                    <div class="mb-3">
+                                        <label for="colorScheme" class="form-label">Pilih Skema Warna</label>
+                                        <select class="form-select" id="colorScheme">
+                                            <option value="blue">Biru (default)</option>
+                                            <option value="green">Hijau</option>
+                                            <option value="purple">Ungu</option>
+                                            <option value="red">Merah</option>
+                                            <option value="orange">Oranye</option>
+                                            <option value="custom">Kustom (deskripsikan)</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3" id="customColorContainer" style="display: none;">
+                                        <label for="customColorDesc" class="form-label">Deskripsi Skema Warna Kustom</label>
+                                        <textarea class="form-control" id="customColorDesc" rows="2" placeholder="Contoh: Warna utama hijau muda (#a8e6cf), aksen merah muda (#ffaaa5)"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Section J: Footer & Kredit -->
+                    <div class="accordion-item section-card">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJ">
+                                <i class="bi bi-info-circle me-2"></i> J. Footer & Kredit
+                            </button>
+                        </h2>
+                        <div id="collapseJ" class="accordion-collapse collapse" data-bs-parent="#formAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-3">
+                                    <label for="guruName" class="form-label">Nama Guru/Pembuat</label>
+                                    <input type="text" class="form-control" id="guruName" value="Guru Contoh">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sekolahName" class="form-label">Nama Sekolah/Institusi</label>
+                                    <input type="text" class="form-control" id="sekolahName" value="Sekolah Menengah Atas Contoh">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="footerText" class="form-label">Teks Footer Tambahan (opsional)</label>
+                                    <textarea class="form-control" id="footerText" rows="2" placeholder="Teks tambahan untuk footer"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <!-- Output Section -->
             <div class="col-lg-4">
-                <div class="sticky-top" style="top: 20px;">
+                <div class="sticky-sidebar">
                     <div class="section-card">
-                        <h3 class="section-title">Prompt yang Dihasilkan</h3>
-                        <p class="text-muted">Prompt ini dapat Anda salin dan gunakan untuk membuat media pembelajaran dengan AI Canva Code</p>
+                        <h3 class="section-title">
+                            <i class="bi bi-chat-left-text"></i> Prompt Hasil
+                        </h3>
+                        <p class="text-muted mb-4">Prompt ini siap digunakan dengan AI Canva Code untuk membuat media pembelajaran interaktif.</p>
                         
                         <div class="prompt-output" id="promptOutput">
                             Prompt akan muncul di sini...
                         </div>
                         
-                        <div class="mt-3 d-grid gap-2">
+                        <div class="mt-4 d-grid gap-2">
                             <button type="button" class="btn btn-custom" id="generateBtn">
-                                <i class="bi bi-magic"></i> Generate Prompt
+                                <i class="bi bi-magic me-2"></i> Generate Prompt
                             </button>
-                            <button type="button" class="btn btn-outline-primary" id="copyBtn">
-                                <i class="bi bi-clipboard"></i> Salin Prompt
+                            <button type="button" class="btn btn-success" id="copyBtn">
+                                <i class="bi bi-clipboard-check me-2"></i> Salin Prompt
                             </button>
-                            <button type="button" class="btn btn-outline-secondary" id="resetBtn">
-                                <i class="bi bi-arrow-clockwise"></i> Reset Form
+                            <button type="button" class="btn btn-outline-custom" id="resetBtn">
+                                <i class="bi bi-arrow-clockwise me-2"></i> Reset Form
                             </button>
                         </div>
                         
-                        <div class="mt-3">
-                            <div class="alert alert-info">
-                                <small>
-                                    <strong>Penting:</strong> Prompt ini dirancang khusus untuk AI Canva Code. Data akan disimpan otomatis ke Canva Sheet tanpa perlu kode penyimpanan manual.
-                                </small>
+                        <div class="mt-4">
+                            <div class="alert alert-info border-0 bg-light">
+                                <div class="d-flex">
+                                    <i class="bi bi-lightbulb me-2"></i>
+                                    <div>
+                                        <small class="fw-bold">Tips Penggunaan:</small>
+                                        <small class="d-block text-muted">1. Isi form sesuai kebutuhan</small>
+                                        <small class="d-block text-muted">2. Klik "Generate Prompt"</small>
+                                        <small class="d-block text-muted">3. Salin prompt dan gunakan di Canva Code</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -528,10 +1066,35 @@
             </div>
         </div>
         
-        <!-- Footer -->
-        <footer class="mt-5 text-center text-muted">
-            <p>Generator Prompt Media Pembelajaran untuk Canva Code &copy; 2023</p>
-        </footer>
+        <!-- Floating Action Buttons -->
+        <div class="floating-action">
+            <button class="floating-btn btn btn-primary" id="scrollTopBtn" title="Kembali ke atas">
+                <i class="bi bi-arrow-up"></i>
+            </button>
+            <button class="floating-btn btn btn-success" id="generateFloatingBtn" title="Generate Prompt">
+                <i class="bi bi-magic"></i>
+            </button>
+        </div>
+        
+        <!-- Confirmation Modal -->
+        <div class="confirmation-modal" id="confirmationModal">
+            <div class="confirmation-content">
+                <h3 class="confirmation-title">
+                    <i class="bi bi-exclamation-triangle"></i> Konfirmasi Hapus
+                </h3>
+                <p class="confirmation-message" id="confirmationMessage">
+                    Apakah Anda yakin ingin menghapus item ini?
+                </p>
+                <div class="confirmation-buttons">
+                    <button type="button" class="btn btn-outline-custom" id="cancelDeleteBtn">
+                        Batal
+                    </button>
+                    <button type="button" class="btn btn-danger-custom" id="confirmDeleteBtn">
+                        Hapus
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap JS Bundle with Popper -->
@@ -563,6 +1126,13 @@
             "Quiz": "quizSection", 
             "Game": "gameSection",
             "Lab Virtual": "labSection"
+        };
+
+        // Delete confirmation state
+        let deleteConfirmation = {
+            type: null,
+            element: null,
+            container: null
         };
 
         // Initialize the app
@@ -600,8 +1170,13 @@
             const container = document.getElementById('tujuanItemsContainer');
             container.innerHTML = '';
             
-            initialData.tujuanItems.forEach(item => {
-                addTujuanItemElement(item);
+            if (initialData.tujuanItems.length === 0) {
+                showEmptyState(container, 'tujuan', 'Belum ada tujuan pembelajaran');
+                return;
+            }
+            
+            initialData.tujuanItems.forEach((item, index) => {
+                addTujuanItemElement(item, index + 1);
             });
         }
 
@@ -610,8 +1185,13 @@
             const container = document.getElementById('menuItemsContainer');
             container.innerHTML = '';
             
-            initialData.menuItems.forEach(item => {
-                addMenuItemElement(item);
+            if (initialData.menuItems.length === 0) {
+                showEmptyState(container, 'menu', 'Belum ada menu');
+                return;
+            }
+            
+            initialData.menuItems.forEach((item, index) => {
+                addMenuItemElement(item, index + 1);
             });
         }
 
@@ -619,12 +1199,14 @@
         function initializeMateriItems() {
             const container = document.getElementById('materiItemsContainer');
             container.innerHTML = '';
+            showEmptyState(container, 'materi', 'Belum ada materi');
         }
 
         // Initialize quiz items
         function initializeQuizItems() {
             const container = document.getElementById('quizItemsContainer');
             container.innerHTML = '';
+            showEmptyState(container, 'quiz', 'Belum ada soal');
         }
 
         // Initialize login fields
@@ -632,41 +1214,73 @@
             const container = document.getElementById('loginFields');
             container.innerHTML = '';
             
-            initialData.loginFields.forEach(field => {
-                addLoginFieldElement(field);
+            initialData.loginFields.forEach((field, index) => {
+                addLoginFieldElement(field, index + 1);
             });
         }
 
+        // Show empty state
+        function showEmptyState(container, type, message) {
+            const iconMap = {
+                'tujuan': 'bi-bullseye',
+                'menu': 'bi-list',
+                'materi': 'bi-journal-text',
+                'quiz': 'bi-question-circle'
+            };
+            
+            const icon = iconMap[type] || 'bi-inbox';
+            
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="bi ${icon}"></i>
+                    </div>
+                    <h5 class="empty-state-text">${message}</h5>
+                    <p class="text-muted">Klik tombol "Tambah" di bawah untuk menambahkan item</p>
+                </div>
+            `;
+        }
+
         // Add a new tujuan item element
-        function addTujuanItemElement(item = null) {
+        function addTujuanItemElement(item = null, index = null) {
             const container = document.getElementById('tujuanItemsContainer');
+            
+            // Remove empty state if exists
+            if (container.querySelector('.empty-state')) {
+                container.innerHTML = '';
+            }
+            
             const itemId = item ? item.id : Date.now();
             const itemText = item ? item.text : '';
+            const itemIndex = index || (container.querySelectorAll('.tujuan-item').length + 1);
             
             const itemElement = document.createElement('div');
             itemElement.className = 'cloneable-item tujuan-item';
+            itemElement.setAttribute('data-id', itemId);
             itemElement.innerHTML = `
-                <div class="row">
-                    <div class="col-md-11">
-                        <label class="form-label">Tujuan Pembelajaran</label>
-                        <textarea class="form-control tujuan-text" rows="2" placeholder="Tulis tujuan pembelajaran">${itemText}</textarea>
+                <div class="item-header">
+                    <div class="item-title">
+                        <span class="item-number">${itemIndex}</span>
+                        Tujuan Pembelajaran
                     </div>
-                    <div class="col-md-1 d-flex align-items-end">
-                        <button type="button" class="btn btn-sm btn-outline-danger remove-tujuan-btn" style="margin-bottom: 8px;">
-                            ×
-                        </button>
+                    <button type="button" class="btn btn-danger-custom btn-sm remove-item-btn" data-type="tujuan" data-id="${itemId}">
+                        <i class="bi bi-trash"></i> Hapus
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label class="form-label">Deskripsi Tujuan</label>
+                        <textarea class="form-control tujuan-text" rows="3" placeholder="Tulis tujuan pembelajaran secara detail">${itemText}</textarea>
                     </div>
                 </div>
             `;
             
             container.appendChild(itemElement);
             
-            // Add event listener to remove button
-            const removeBtn = itemElement.querySelector('.remove-tujuan-btn');
-            removeBtn.addEventListener('click', function() {
-                itemElement.remove();
-                updateCounters();
-                generatePrompt();
+            // Add event listener to delete button
+            const deleteBtn = itemElement.querySelector('.remove-item-btn');
+            deleteBtn.addEventListener('click', function() {
+                showDeleteConfirmation('tujuan', itemElement, container);
             });
             
             // Add event listeners to textarea
@@ -676,23 +1290,45 @@
             });
             
             updateCounters();
+            renumberItems(container, '.tujuan-item');
         }
 
         // Add a new menu item element
-        function addMenuItemElement(item = null) {
+        function addMenuItemElement(item = null, index = null) {
             const container = document.getElementById('menuItemsContainer');
+            
+            // Remove empty state if exists
+            if (container.querySelector('.empty-state')) {
+                container.innerHTML = '';
+            }
+            
             const itemId = item ? item.id : Date.now();
             const itemName = item ? item.name : '';
             const itemDesc = item ? item.description : '';
             const itemIcon = item ? item.iconUrl : '';
+            const itemIndex = index || (container.querySelectorAll('.menu-item').length + 1);
             
             const itemElement = document.createElement('div');
-            itemElement.className = 'cloneable-item';
+            itemElement.className = 'cloneable-item menu-item';
+            itemElement.setAttribute('data-id', itemId);
             itemElement.innerHTML = `
+                <div class="item-header">
+                    <div class="item-title">
+                        <span class="item-number">${itemIndex}</span>
+                        Menu Item
+                    </div>
+                    <button type="button" class="btn btn-danger-custom btn-sm remove-item-btn" data-type="menu" data-id="${itemId}">
+                        <i class="bi bi-trash"></i> Hapus
+                    </button>
+                </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <label class="form-label">Nama Menu</label>
                         <input type="text" class="form-control menu-name" value="${itemName}" placeholder="Contoh: Materi, Quiz, Game">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Deskripsi Singkat</label>
+                        <input type="text" class="form-control menu-desc" value="${itemDesc}" placeholder="Deskripsi menu">
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Icon/Thumbnail URL</label>
@@ -703,26 +1339,20 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Deskripsi Singkat</label>
-                        <input type="text" class="form-control menu-desc" value="${itemDesc}" placeholder="Deskripsi menu">
-                    </div>
-                    <div class="col-md-1 d-flex align-items-end">
-                        <button type="button" class="btn btn-sm btn-outline-danger remove-menu-btn" style="margin-bottom: 8px;">
-                            ×
-                        </button>
-                    </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-3">
+                    <div class="col-md-5">
+                        <small class="text-muted">Nama menu akan menentukan apakah section terkait muncul</small>
+                    </div>
                     <div class="col-md-4">
-                        <small class="text-muted">Contoh URL icon: https://example.com/icon.png</small>
+                        <small class="text-muted">Deskripsi akan muncul di tooltip atau caption</small>
                     </div>
                     <div class="col-md-3">
                         <div class="icon-preview-container mt-1">
-                            <img src="${itemIcon || 'https://via.placeholder.com/40x40?text=Icon'}" 
+                            <img src="${itemIcon || 'https://via.placeholder.com/48x48?text=Icon'}" 
                                  class="icon-preview" 
                                  alt="Preview icon"
-                                 onerror="this.src='https://via.placeholder.com/40x40?text=Error'">
+                                 onerror="this.src='https://via.placeholder.com/48x48?text=Error'">
                         </div>
                     </div>
                 </div>
@@ -730,13 +1360,10 @@
             
             container.appendChild(itemElement);
             
-            // Add event listener to remove button
-            const removeBtn = itemElement.querySelector('.remove-menu-btn');
-            removeBtn.addEventListener('click', function() {
-                itemElement.remove();
-                updateCounters();
-                updateConditionalSections();
-                generatePrompt();
+            // Add event listener to delete button
+            const deleteBtn = itemElement.querySelector('.remove-item-btn');
+            deleteBtn.addEventListener('click', function() {
+                showDeleteConfirmation('menu', itemElement, container);
             });
             
             // Add event listener to preview button
@@ -744,7 +1371,7 @@
             previewBtn.addEventListener('click', function() {
                 const urlInput = itemElement.querySelector('.menu-icon-url');
                 const previewImg = itemElement.querySelector('.icon-preview');
-                previewImg.src = urlInput.value || 'https://via.placeholder.com/40x40?text=Icon';
+                previewImg.src = urlInput.value || 'https://via.placeholder.com/48x48?text=Icon';
             });
             
             // Add event listeners to inputs
@@ -754,7 +1381,7 @@
                     // Update icon preview if icon URL changes
                     if (input.classList.contains('menu-icon-url')) {
                         const previewImg = itemElement.querySelector('.icon-preview');
-                        previewImg.src = input.value || 'https://via.placeholder.com/40x40?text=Icon';
+                        previewImg.src = input.value || 'https://via.placeholder.com/48x48?text=Icon';
                     }
                     
                     // Update conditional sections if menu name changes
@@ -767,25 +1394,44 @@
             });
             
             updateCounters();
+            updateConditionalSections();
+            renumberItems(container, '.menu-item');
         }
 
         // Add a new materi item element
-        function addMateriItemElement(item = null) {
+        function addMateriItemElement(item = null, index = null) {
             const container = document.getElementById('materiItemsContainer');
+            
+            // Remove empty state if exists
+            if (container.querySelector('.empty-state')) {
+                container.innerHTML = '';
+            }
+            
             const itemId = item ? item.id : Date.now();
             const itemJudul = item ? item.judul : '';
             const itemKonten = item ? item.konten : '';
             const itemMediaUrl = item ? item.mediaUrl : '';
+            const itemIndex = index || (container.querySelectorAll('.materi-item').length + 1);
             
             const itemElement = document.createElement('div');
             itemElement.className = 'cloneable-item materi-item';
+            itemElement.setAttribute('data-id', itemId);
             itemElement.innerHTML = `
+                <div class="item-header">
+                    <div class="item-title">
+                        <span class="item-number">${itemIndex}</span>
+                        Materi Pembelajaran
+                    </div>
+                    <button type="button" class="btn btn-danger-custom btn-sm remove-item-btn" data-type="materi" data-id="${itemId}">
+                        <i class="bi bi-trash"></i> Hapus
+                    </button>
+                </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <label class="form-label">Judul Materi</label>
                         <input type="text" class="form-control materi-judul" value="${itemJudul}" placeholder="Judul materi">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label class="form-label">URL Media (gambar/video/audio)</label>
                         <div class="input-group">
                             <input type="text" class="form-control materi-media-url" value="${itemMediaUrl}" placeholder="URL gambar/video/audio">
@@ -794,29 +1440,24 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label class="form-label">Konten Materi</label>
-                        <textarea class="form-control materi-konten" rows="2" placeholder="Isi/konten materi">${itemKonten}</textarea>
-                    </div>
-                    <div class="col-md-1 d-flex align-items-end">
-                        <button type="button" class="btn btn-sm btn-outline-danger remove-materi-btn" style="margin-bottom: 8px;">
-                            ×
-                        </button>
+                        <textarea class="form-control materi-konten" rows="3" placeholder="Isi/konten materi">${itemKonten}</textarea>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-md-4">
-                        <small class="text-muted">Contoh: https://example.com/image.jpg</small>
+                <div class="row mt-3">
+                    <div class="col-md-5">
+                        <small class="text-muted">Judul akan muncul sebagai heading materi</small>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="media-preview-container mt-1">
-                            <img src="${itemMediaUrl || 'https://via.placeholder.com/100x60?text=Media'}" 
+                            <img src="${itemMediaUrl || 'https://via.placeholder.com/120x80?text=Media'}" 
                                  class="media-preview" 
                                  alt="Preview media"
-                                 onerror="this.src='https://via.placeholder.com/100x60?text=Error'">
+                                 onerror="this.src='https://via.placeholder.com/120x80?text=Error'">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <small class="text-muted">Gunakan URL langsung, bukan iframe/embed</small>
                     </div>
                 </div>
@@ -824,12 +1465,10 @@
             
             container.appendChild(itemElement);
             
-            // Add event listener to remove button
-            const removeBtn = itemElement.querySelector('.remove-materi-btn');
-            removeBtn.addEventListener('click', function() {
-                itemElement.remove();
-                updateCounters();
-                generatePrompt();
+            // Add event listener to delete button
+            const deleteBtn = itemElement.querySelector('.remove-item-btn');
+            deleteBtn.addEventListener('click', function() {
+                showDeleteConfirmation('materi', itemElement, container);
             });
             
             // Add event listener to preview button
@@ -837,7 +1476,7 @@
             previewBtn.addEventListener('click', function() {
                 const urlInput = itemElement.querySelector('.materi-media-url');
                 const previewImg = itemElement.querySelector('.media-preview');
-                previewImg.src = urlInput.value || 'https://via.placeholder.com/100x60?text=Media';
+                previewImg.src = urlInput.value || 'https://via.placeholder.com/120x80?text=Media';
             });
             
             // Add event listeners to inputs
@@ -847,7 +1486,7 @@
                     // Update media preview if media URL changes
                     if (input.classList.contains('materi-media-url')) {
                         const previewImg = itemElement.querySelector('.media-preview');
-                        previewImg.src = input.value || 'https://via.placeholder.com/100x60?text=Media';
+                        previewImg.src = input.value || 'https://via.placeholder.com/120x80?text=Media';
                     }
                     
                     generatePrompt();
@@ -855,31 +1494,44 @@
             });
             
             updateCounters();
+            renumberItems(container, '.materi-item');
         }
 
         // Add a new quiz item element
-        function addQuizItemElement(item = null) {
+        function addQuizItemElement(item = null, index = null) {
             const container = document.getElementById('quizItemsContainer');
+            
+            // Remove empty state if exists
+            if (container.querySelector('.empty-state')) {
+                container.innerHTML = '';
+            }
+            
             const itemId = item ? item.id : Date.now();
             const itemPertanyaan = item ? item.pertanyaan : '';
             const itemOptions = item ? item.options : ['', '', '', ''];
             const itemJawaban = item ? item.jawaban : 0;
+            const itemIndex = index || (container.querySelectorAll('.quiz-item').length + 1);
             
             const itemElement = document.createElement('div');
             itemElement.className = 'cloneable-item quiz-item';
+            itemElement.setAttribute('data-id', itemId);
             itemElement.innerHTML = `
+                <div class="item-header">
+                    <div class="item-title">
+                        <span class="item-number">${itemIndex}</span>
+                        Soal Quiz
+                    </div>
+                    <button type="button" class="btn btn-danger-custom btn-sm remove-item-btn" data-type="quiz" data-id="${itemId}">
+                        <i class="bi bi-trash"></i> Hapus
+                    </button>
+                </div>
                 <div class="row">
-                    <div class="col-md-11">
+                    <div class="col-12">
                         <label class="form-label">Pertanyaan</label>
                         <input type="text" class="form-control quiz-pertanyaan" value="${itemPertanyaan}" placeholder="Masukkan pertanyaan">
                     </div>
-                    <div class="col-md-1 d-flex align-items-end">
-                        <button type="button" class="btn btn-sm btn-outline-danger remove-quiz-btn" style="margin-bottom: 8px;">
-                            ×
-                        </button>
-                    </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-3">
                     <div class="col-md-6">
                         <label class="form-label">Opsi A</label>
                         <input type="text" class="form-control quiz-option" data-index="0" value="${itemOptions[0]}" placeholder="Opsi A">
@@ -889,7 +1541,7 @@
                         <input type="text" class="form-control quiz-option" data-index="1" value="${itemOptions[1]}" placeholder="Opsi B">
                     </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-3">
                     <div class="col-md-6">
                         <label class="form-label">Opsi C</label>
                         <input type="text" class="form-control quiz-option" data-index="2" value="${itemOptions[2]}" placeholder="Opsi C">
@@ -899,7 +1551,7 @@
                         <input type="text" class="form-control quiz-option" data-index="3" value="${itemOptions[3]}" placeholder="Opsi D">
                     </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-3">
                     <div class="col-md-6">
                         <label class="form-label">Jawaban Benar</label>
                         <select class="form-select quiz-jawaban">
@@ -914,12 +1566,10 @@
             
             container.appendChild(itemElement);
             
-            // Add event listener to remove button
-            const removeBtn = itemElement.querySelector('.remove-quiz-btn');
-            removeBtn.addEventListener('click', function() {
-                itemElement.remove();
-                updateQuizCounter();
-                generatePrompt();
+            // Add event listener to delete button
+            const deleteBtn = itemElement.querySelector('.remove-item-btn');
+            deleteBtn.addEventListener('click', function() {
+                showDeleteConfirmation('quiz', itemElement, container);
             });
             
             // Add event listeners to inputs
@@ -930,21 +1580,33 @@
             });
             
             updateQuizCounter();
+            renumberItems(container, '.quiz-item');
         }
 
         // Add a new login field element
-        function addLoginFieldElement(field = null) {
+        function addLoginFieldElement(field = null, index = null) {
             const container = document.getElementById('loginFields');
             const fieldId = field ? field.id : Date.now();
             const fieldName = field ? field.name : '';
             const fieldType = field ? field.type : 'text';
             const fieldRequired = field ? field.required : true;
+            const fieldIndex = index || (container.querySelectorAll('.login-field-item').length + 1);
             
             const fieldElement = document.createElement('div');
             fieldElement.className = 'login-field-item';
+            fieldElement.setAttribute('data-id', fieldId);
             fieldElement.innerHTML = `
+                <div class="item-header mb-3">
+                    <div class="item-title">
+                        <span class="item-number">${fieldIndex}</span>
+                        Field Login
+                    </div>
+                    <button type="button" class="btn btn-danger-custom btn-sm remove-item-btn" data-type="login-field" data-id="${fieldId}">
+                        <i class="bi bi-trash"></i> Hapus
+                    </button>
+                </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <label class="form-label">Nama Field</label>
                         <input type="text" class="form-control login-field-name" value="${fieldName}" placeholder="Contoh: Nama, Kelas">
                     </div>
@@ -965,21 +1627,15 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-2 d-flex align-items-end">
-                        <button type="button" class="btn btn-sm btn-outline-danger remove-login-field-btn" style="margin-bottom: 8px;">
-                            ×
-                        </button>
-                    </div>
                 </div>
             `;
             
             container.appendChild(fieldElement);
             
-            // Add event listener to remove button
-            const removeBtn = fieldElement.querySelector('.remove-login-field-btn');
-            removeBtn.addEventListener('click', function() {
-                fieldElement.remove();
-                generatePrompt();
+            // Add event listener to delete button
+            const deleteBtn = fieldElement.querySelector('.remove-item-btn');
+            deleteBtn.addEventListener('click', function() {
+                showDeleteConfirmation('login-field', fieldElement, container);
             });
             
             // Add event listeners to inputs
@@ -990,18 +1646,49 @@
             });
         }
 
+        // Renumber items
+        function renumberItems(container, selector) {
+            const items = container.querySelectorAll(selector);
+            items.forEach((item, index) => {
+                const numberElement = item.querySelector('.item-number');
+                if (numberElement) {
+                    numberElement.textContent = index + 1;
+                }
+            });
+        }
+
         // Update counters
         function updateCounters() {
-            document.getElementById('menuCounter').textContent = document.querySelectorAll('#menuItemsContainer .cloneable-item').length;
-            document.getElementById('materiCounter').textContent = document.querySelectorAll('#materiItemsContainer .cloneable-item').length;
-            document.getElementById('tujuanCounter').textContent = document.querySelectorAll('#tujuanItemsContainer .cloneable-item').length;
+            const menuCount = document.querySelectorAll('#menuItemsContainer .menu-item').length;
+            const materiCount = document.querySelectorAll('#materiItemsContainer .materi-item').length;
+            const tujuanCount = document.querySelectorAll('#tujuanItemsContainer .tujuan-item').length;
+            
+            document.getElementById('menuCounter').textContent = menuCount;
+            document.getElementById('materiCounter').textContent = materiCount;
+            document.getElementById('tujuanCounter').textContent = tujuanCount;
+            
             updateQuizCounter();
+            
+            // Show empty states if needed
+            if (menuCount === 0) {
+                showEmptyState(document.getElementById('menuItemsContainer'), 'menu', 'Belum ada menu');
+            }
+            if (materiCount === 0) {
+                showEmptyState(document.getElementById('materiItemsContainer'), 'materi', 'Belum ada materi');
+            }
+            if (tujuanCount === 0) {
+                showEmptyState(document.getElementById('tujuanItemsContainer'), 'tujuan', 'Belum ada tujuan');
+            }
         }
 
         // Update quiz counter
         function updateQuizCounter() {
-            const quizCount = document.querySelectorAll('#quizItemsContainer .cloneable-item').length;
+            const quizCount = document.querySelectorAll('#quizItemsContainer .quiz-item').length;
             document.getElementById('quizCounter').textContent = quizCount;
+            
+            if (quizCount === 0 && document.getElementById('quizManualContainer').style.display !== 'none') {
+                showEmptyState(document.getElementById('quizItemsContainer'), 'quiz', 'Belum ada soal');
+            }
         }
 
         // Update conditional sections based on menu items
@@ -1018,10 +1705,106 @@
                 
                 if (menuNames.includes(sectionName)) {
                     section.classList.add('active');
+                    // Expand accordion if menu exists
+                    const accordionButton = section.querySelector('.accordion-button');
+                    if (accordionButton && accordionButton.classList.contains('collapsed')) {
+                        accordionButton.classList.remove('collapsed');
+                        const collapseId = accordionButton.getAttribute('data-bs-target').replace('#', '');
+                        const collapseElement = document.getElementById(collapseId);
+                        if (collapseElement) {
+                            collapseElement.classList.add('show');
+                        }
+                    }
                 } else {
                     section.classList.remove('active');
                 }
             });
+        }
+
+        // Show delete confirmation modal
+        function showDeleteConfirmation(type, element, container) {
+            const typeNames = {
+                'tujuan': 'Tujuan Pembelajaran',
+                'menu': 'Menu',
+                'materi': 'Materi',
+                'quiz': 'Soal Quiz',
+                'login-field': 'Field Login'
+            };
+            
+            const typeName = typeNames[type] || 'Item';
+            const message = `Apakah Anda yakin ingin menghapus ${typeName.toLowerCase()} ini?`;
+            
+            document.getElementById('confirmationMessage').textContent = message;
+            deleteConfirmation.type = type;
+            deleteConfirmation.element = element;
+            deleteConfirmation.container = container;
+            
+            document.getElementById('confirmationModal').classList.add('show');
+        }
+
+        // Hide delete confirmation modal
+        function hideDeleteConfirmation() {
+            document.getElementById('confirmationModal').classList.remove('show');
+            deleteConfirmation.type = null;
+            deleteConfirmation.element = null;
+            deleteConfirmation.container = null;
+        }
+
+        // Delete item after confirmation
+        function deleteItem() {
+            if (!deleteConfirmation.element || !deleteConfirmation.container) {
+                hideDeleteConfirmation();
+                return;
+            }
+            
+            // Remove the element
+            deleteConfirmation.element.remove();
+            
+            // Update counters and UI
+            updateCounters();
+            updateConditionalSections();
+            generatePrompt();
+            
+            // Renumber items
+            if (deleteConfirmation.container) {
+                renumberItems(deleteConfirmation.container, `.${deleteConfirmation.type}-item`);
+            }
+            
+            hideDeleteConfirmation();
+        }
+
+        // Delete all items of a type
+        function deleteAllItems(type) {
+            const containerMap = {
+                'tujuan': 'tujuanItemsContainer',
+                'menu': 'menuItemsContainer',
+                'materi': 'materiItemsContainer',
+                'quiz': 'quizItemsContainer'
+            };
+            
+            const containerId = containerMap[type];
+            if (!containerId) return;
+            
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            // Clear container
+            container.innerHTML = '';
+            
+            // Show empty state
+            const typeNames = {
+                'tujuan': 'tujuan',
+                'menu': 'menu',
+                'materi': 'materi',
+                'quiz': 'quiz'
+            };
+            
+            showEmptyState(container, typeNames[type], `Belum ada ${typeNames[type]}`);
+            
+            // Update counters and UI
+            updateCounters();
+            updateConditionalSections();
+            generatePrompt();
         }
 
         // Set up event listeners
@@ -1035,7 +1818,6 @@
             // Add menu button
             document.getElementById('addMenuBtn').addEventListener('click', function() {
                 addMenuItemElement();
-                updateConditionalSections();
                 generatePrompt();
             });
             
@@ -1056,6 +1838,35 @@
                 addLoginFieldElement();
                 generatePrompt();
             });
+            
+            // Delete all buttons
+            document.getElementById('removeAllTujuanBtn').addEventListener('click', function() {
+                if (confirm('Apakah Anda yakin ingin menghapus semua tujuan pembelajaran?')) {
+                    deleteAllItems('tujuan');
+                }
+            });
+            
+            document.getElementById('removeAllMenuBtn').addEventListener('click', function() {
+                if (confirm('Apakah Anda yakin ingin menghapus semua menu?')) {
+                    deleteAllItems('menu');
+                }
+            });
+            
+            document.getElementById('removeAllMateriBtn').addEventListener('click', function() {
+                if (confirm('Apakah Anda yakin ingin menghapus semua materi?')) {
+                    deleteAllItems('materi');
+                }
+            });
+            
+            document.getElementById('removeAllQuizBtn').addEventListener('click', function() {
+                if (confirm('Apakah Anda yakin ingin menghapus semua soal quiz?')) {
+                    deleteAllItems('quiz');
+                }
+            });
+            
+            // Confirmation modal buttons
+            document.getElementById('cancelDeleteBtn').addEventListener('click', hideDeleteConfirmation);
+            document.getElementById('confirmDeleteBtn').addEventListener('click', deleteItem);
             
             // Login option change
             document.querySelectorAll('input[name="loginOption"]').forEach(radio => {
@@ -1092,6 +1903,25 @@
                 generatePrompt();
             });
             
+            // Quiz source change
+            document.querySelectorAll('input[name="quizSource"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const quizManualContainer = document.getElementById('quizManualContainer');
+                    if (this.value === 'manual') {
+                        quizManualContainer.style.display = 'block';
+                    } else {
+                        quizManualContainer.style.display = 'none';
+                    }
+                    generatePrompt();
+                });
+            });
+            
+            // Quiz count slider
+            document.getElementById('quizCount').addEventListener('input', function() {
+                document.getElementById('quizCountValue').textContent = this.value + ' soal';
+                generatePrompt();
+            });
+            
             // Responsive vertical/horizontal checkboxes
             document.getElementById('responsiveVertical').addEventListener('change', function() {
                 if (!this.checked && !document.getElementById('responsiveHorizontal').checked) {
@@ -1121,11 +1951,19 @@
             // Generate button
             document.getElementById('generateBtn').addEventListener('click', generatePrompt);
             
+            // Generate floating button
+            document.getElementById('generateFloatingBtn').addEventListener('click', generatePrompt);
+            
             // Copy button
             document.getElementById('copyBtn').addEventListener('click', copyPrompt);
             
             // Reset button
             document.getElementById('resetBtn').addEventListener('click', resetForm);
+            
+            // Scroll to top button
+            document.getElementById('scrollTopBtn').addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
             
             // Loading screen type change
             document.getElementById('loadingScreenType').addEventListener('change', function() {
@@ -1149,11 +1987,35 @@
                 generatePrompt();
             });
             
+            // Auto update step indicator based on scroll
+            window.addEventListener('scroll', updateStepIndicator);
+            
             // Add event listeners to all form controls
             const formControls = document.querySelectorAll('select, input:not(.menu-name,.menu-desc,.menu-icon-url,.materi-judul,.materi-konten,.materi-media-url,.tujuan-text,.quiz-pertanyaan,.quiz-option,.login-field-name), textarea:not(.materi-konten,.tujuan-text), input[type="checkbox"]:not(.login-field-required)');
             formControls.forEach(control => {
                 control.addEventListener('change', generatePrompt);
                 control.addEventListener('input', generatePrompt);
+            });
+        }
+
+        // Update step indicator based on scroll position
+        function updateStepIndicator() {
+            const sections = document.querySelectorAll('.accordion-item');
+            const scrollPosition = window.scrollY + 100;
+            
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const steps = document.querySelectorAll('.step');
+                    steps.forEach((step, stepIndex) => {
+                        step.classList.remove('active');
+                        if (stepIndex <= index) {
+                            step.classList.add('active');
+                        }
+                    });
+                }
             });
         }
 
@@ -1173,7 +2035,7 @@
         function collectFormData() {
             // Collect tujuan items
             const tujuanItems = [];
-            const tujuanElements = document.querySelectorAll('#tujuanItemsContainer .cloneable-item');
+            const tujuanElements = document.querySelectorAll('#tujuanItemsContainer .tujuan-item');
             tujuanElements.forEach(element => {
                 const text = element.querySelector('.tujuan-text').value;
                 if (text.trim() !== '') {
@@ -1183,7 +2045,7 @@
             
             // Collect menu items
             const menuItems = [];
-            const menuElements = document.querySelectorAll('#menuItemsContainer .cloneable-item');
+            const menuElements = document.querySelectorAll('#menuItemsContainer .menu-item');
             menuElements.forEach(element => {
                 const name = element.querySelector('.menu-name').value;
                 const desc = element.querySelector('.menu-desc').value;
@@ -1195,7 +2057,7 @@
             
             // Collect materi items
             const materiItems = [];
-            const materiElements = document.querySelectorAll('#materiItemsContainer .cloneable-item');
+            const materiElements = document.querySelectorAll('#materiItemsContainer .materi-item');
             materiElements.forEach(element => {
                 const judul = element.querySelector('.materi-judul').value;
                 const konten = element.querySelector('.materi-konten').value;
@@ -1207,7 +2069,7 @@
             
             // Collect quiz items
             const quizItems = [];
-            const quizElements = document.querySelectorAll('#quizItemsContainer .cloneable-item');
+            const quizElements = document.querySelectorAll('#quizItemsContainer .quiz-item');
             quizElements.forEach(element => {
                 const pertanyaan = element.querySelector('.quiz-pertanyaan').value;
                 const options = Array.from(element.querySelectorAll('.quiz-option')).map(input => input.value);
@@ -1237,6 +2099,8 @@
             const loginOption = document.querySelector('input[name="loginOption"]:checked').value;
             const trackLearningTime = document.getElementById('trackLearningTime').checked;
             const quizType = document.getElementById('quizType').value;
+            const quizSource = document.querySelector('input[name="quizSource"]:checked').value;
+            const quizCount = document.getElementById('quizCount').value;
             const saveQuizToCanva = document.getElementById('saveQuizToCanva').checked;
             const gameType = document.getElementById('gameType').value;
             const customGameDesc = document.getElementById('customGameDesc').value;
@@ -1270,6 +2134,8 @@
                 materiItems,
                 trackLearningTime,
                 quizType,
+                quizSource,
+                quizCount,
                 quizItems,
                 saveQuizToCanva,
                 gameType,
@@ -1385,19 +2251,23 @@
                     prompt += "- SIMPAN HASIL KE CANVA SHEET: Data hasil quiz harus disimpan otomatis ke Canva Sheet\n";
                 }
                 
-                if (data.quizItems.length > 0) {
-                    prompt += "- Daftar soal quiz:\n";
-                    data.quizItems.forEach((item, index) => {
-                        prompt += `  ${index + 1}. ${item.pertanyaan}\n`;
-                        item.options.forEach((option, optIndex) => {
-                            if (option.trim() !== '') {
-                                prompt += `     ${String.fromCharCode(65 + optIndex)}. ${option}\n`;
-                            }
-                        });
-                        prompt += `     Jawaban benar: ${String.fromCharCode(65 + item.jawaban)}\n`;
-                    });
+                if (data.quizSource === 'auto') {
+                    prompt += `- SUMBER SOAL: Buat otomatis oleh Canva Code sebanyak ${data.quizCount} soal\n`;
                 } else {
-                    prompt += "- Buat 5 soal quiz dengan jawaban pilihan ganda\n";
+                    prompt += "- SUMBER SOAL: Gunakan soal manual berikut:\n";
+                    if (data.quizItems.length > 0) {
+                        data.quizItems.forEach((item, index) => {
+                            prompt += `  ${index + 1}. ${item.pertanyaan}\n`;
+                            item.options.forEach((option, optIndex) => {
+                                if (option.trim() !== '') {
+                                    prompt += `     ${String.fromCharCode(65 + optIndex)}. ${option}\n`;
+                                }
+                            });
+                            prompt += `     Jawaban benar: ${String.fromCharCode(65 + item.jawaban)}\n`;
+                        });
+                    } else {
+                        prompt += "- Belum ada soal manual, buat 5 soal quiz dengan jawaban pilihan ganda\n";
+                    }
                 }
                 
                 prompt += "- Tampilkan hasil akhir dengan skor dan review jawaban\n";
@@ -1540,14 +2410,14 @@
                 // Change button text temporarily
                 const copyBtn = document.getElementById('copyBtn');
                 const originalText = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<i class="bi bi-check2"></i> Tersalin!';
-                copyBtn.classList.remove('btn-outline-primary');
-                copyBtn.classList.add('btn-success');
+                copyBtn.innerHTML = '<i class="bi bi-clipboard-check me-2"></i> Tersalin!';
+                copyBtn.classList.remove('btn-success');
+                copyBtn.classList.add('btn-primary');
                 
                 setTimeout(() => {
                     copyBtn.innerHTML = originalText;
-                    copyBtn.classList.remove('btn-success');
-                    copyBtn.classList.add('btn-outline-primary');
+                    copyBtn.classList.remove('btn-primary');
+                    copyBtn.classList.add('btn-success');
                 }, 2000);
             }).catch(err => {
                 console.error('Gagal menyalin: ', err);
@@ -1566,6 +2436,9 @@
                 document.getElementById('loginNo').checked = true;
                 document.getElementById('trackLearningTime').checked = false;
                 document.getElementById('quizType').value = 'pilihan_ganda';
+                document.getElementById('quizAuto').checked = true;
+                document.getElementById('quizCount').value = '5';
+                document.getElementById('quizCountValue').textContent = '5 soal';
                 document.getElementById('saveQuizToCanva').checked = true;
                 document.getElementById('gameType').value = 'memory';
                 document.getElementById('customGameDesc').value = '';
@@ -1593,6 +2466,7 @@
                 document.getElementById('loginFieldsContainer').style.display = 'none';
                 document.getElementById('backsoundOptions').style.display = 'none';
                 document.getElementById('customGameContainer').style.display = 'none';
+                document.getElementById('quizManualContainer').style.display = 'none';
                 
                 // Reset tujuan, menu, materi, quiz, and login fields
                 initializeTujuanItems();
